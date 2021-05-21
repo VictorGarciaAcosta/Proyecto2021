@@ -6,7 +6,7 @@
     </div>
     <div class="form-element">
         <label>Apellidos</label>
-        <input type="text" name="Apellidos" pattern="[a-zA-Z0-9]+" required />
+        <input type="text" name="Apellidos" required />
     </div>
     <div class="form-element">
         <label>Email</label>

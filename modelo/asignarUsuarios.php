@@ -44,8 +44,7 @@
 		$nombre = $_SESSION['user'];
 		$administrador = $_SESSION['administrador'];
 	}
-
-	//enviarResultados($nombre,$administrador);
+	/*enviarResultados($nombre,$administrador);
 
 	function enviarResultados($nombre,$administrador){
 	    // Generar la respuesta
@@ -55,7 +54,7 @@
 		$respuesta['administrador'] = $administrador;
 
     	echo json_encode($respuesta);		
-	}
+	}*/
 	$conn=null;
 	header("Location: ../index.php");
 ?>

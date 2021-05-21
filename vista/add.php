@@ -65,6 +65,7 @@ json_encode($ar);
     <title>Tienda Videojuegos</title>
 </head>
 
+
 <body>
     <!-- Pagina de Inicio   -->
     <ul>
@@ -83,9 +84,7 @@ json_encode($ar);
 
     </ul>
     <div class="content">
-        <div id="caja">
-
-        </div>
+        
         <form action="../controlador/add.php" method="post">
             <label for="">nombre_producto</label><br><input type="text" name="nombre_producto" required><br>
             <label for="">descripcion</label><br><textarea name="descripcion" cols="30" rows="10" required></textarea><br>

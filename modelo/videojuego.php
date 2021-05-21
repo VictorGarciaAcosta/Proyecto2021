@@ -1,7 +1,7 @@
 <?php
 
     require_once 'conexion.php';
-
+    
     /**
      * 
      * Objeto videojuego.
@@ -16,14 +16,16 @@
         public $id_categoria;
         public $nombre_producto;
         public $descripcion;
+        public $id_producto;
 
-        public function __construct($precio, $stock, $imagen,$id_categoria,$descripcion,$nombre_producto){
+        public function __construct($precio, $stock, $imagen,$id_categoria,$descripcion,$nombre_producto,$id_producto){
             $this->precio = $precio;
             $this->stock = $stock;
             $this->imagen = $imagen;
             $this->id_categoria = $id_categoria;
             $this->nombre_producto = $nombre_producto;
             $this->descripcion = $descripcion;
+            $this->id_producto = $id_producto;
         }
         
         public function Mostrar_precio(){
@@ -66,7 +68,9 @@
             $this->ejecuta($sql);
         }
         public function modify() {                 
-            $sql = "UPDATE `producto` SET `stock` = \"".$this->stock."\", `imagen` = \"".$this->imagen."\" WHERE `producto`.`precio` = \"".$this->precio."\"";
+            $sql = "UPDATE `producto` SET `stock` = \"$this->stock\", `imagen` = \"".$this->imagen."\", `precio` = \"$this->precio\",  `id_categoria` = \"$this->id_categoria\", `nombre_producto` = \"".$this->nombre_producto."\", `descripcion` = \"".$this->descripcion."\" WHERE `producto`.`id_producto` = \"".$this->id_producto."\"";
+            echo $sql;
+
             $this->ejecuta($sql);
         }
 
