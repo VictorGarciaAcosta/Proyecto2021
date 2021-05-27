@@ -1,8 +1,15 @@
 <?php
+error_reporting(E_ALL);
 
-    include('../modelo/videojuego.php');
-    session_start();
-    $indice = $_SESSION['Producto1'];
+include('../modelo/videojuego.php');
+session_start();
+
+$nombre = $_SESSION['user'];
+$administrador = $_SESSION['administrador'];
+
+$ar = array($nombre, $administrador);
+json_encode($ar);
+$listado = producto::getUserInfo($_SESSION['id_usuario']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,26 +77,22 @@
     </ul>
     <div class="content">
         <form action="../controlador/modificar.php" method="post">                
-            <fieldset>
-                    <legend name="<?php echo $indice[5]; ?>"><?php echo $indice[5]; ?> </legend>
-                    <img src="<?php echo ".".$indice[2]; ?>" alt="<?php echo $indice[5]; ?>">
-                    <p><b>Descripcion: <br /> </b><?php echo $indice[4]; ?></p>
-                    <p class="bloque"> <b>Categoria </b><?php echo $indice[3]; ?></p>
-                    <p class="bloque"><b>Precio </b><?php echo $indice[0] . "€"; ?></p>
-                    <p class="bloque"><b>Stock </b><?php echo $indice[1] . " unidades"; ?></p>
+        <fieldset>
+                <legend name="<?php echo $listado['NOMBRE']; ?>"><?php echo $listado['NOMBRE']; ?> </legend>
+                <p><b>Apellidos </b><?php echo $listado['APELLIDOS']; ?></p>
+                <p><b>Email </b><?php echo $listado['EMAIL']; ?></p>
+                <p><b>Direccion </b><?php echo $listado['DIRECCION']; ?></p>
+                <br>
+                
+                    
+                
             </fieldset>
-            <label for="">nombre_producto</label>
-            <br>
-            <input type="text" name="nombre_producto" value="<?php echo $indice[5]?>" ><br>
-            <label for="">descripcion</label><br><textarea name="descripcion" cols="30" rows="10" placeholder="<?php echo $indice[4]?>" required></textarea><br>
-            <label for="">id_categoria</label><br><input type="text" name="id_categoria" value="<?php echo $indice[3]?>" required><br>
-            <label for="">imagen</label><br><input type="text" name="imagen" value="<?php echo $indice[2]?>" required><br>
-            <label for="">precio</label><br><input type="text" name="precio" value="<?php echo $indice[0]?>" required><br>
-            <label for="">stock</label><br><input type="text" name="stock" value="<?php echo $indice[1]?>" required><br>
-            <input type="hidden" name="id_producto" value="<?php echo $_SESSION['id_producto']; ?>">
-            
-            
-            <input type="submit" value="Aceptar" name="Aceptar">
+            <label for="">Nombre</label><br><input type="text" name="NOMBRE" value="<?php echo $listado['NOMBRE']?>" ><br>
+            <label for="">Apellidos</label><br><input type="text" name="APELLIDOS" value="<?php echo $listado['APELLIDOS']?>" required><br>
+            <label for="">EMAIL</label><br><input type="text" name="EMAIL" value="<?php echo $listado['EMAIL']?>" required><br>
+            <label for="">DIRECCION</label><br><input type="text" name="DIRECCION" value="<?php echo $listado['DIRECCION']?>" required><br>
+            <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>">
+            <input type="submit" value="Aceptar Cambios" name="AceptarCambios">
         </form>
     </div>
 </body>

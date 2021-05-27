@@ -12,17 +12,11 @@
 	echo $_SESSION['nombre'];
 	echo $_SESSION['contrasena'];
 
-	$query = $conn->prepare("SELECT ADMINISTRADOR,NOMBRE FROM usuario WHERE NOMBRE=:nombre AND CONTRASENA =:contrasena");
+	$query = $conn->prepare("SELECT ADMINISTRADOR,NOMBRE,ID_USUARIO FROM usuario WHERE NOMBRE=:nombre AND CONTRASENA =:contrasena");
 	$query->bindParam("nombre", $nombre, PDO::PARAM_STR);
 	$query->bindParam("contrasena", $contrasena, PDO::PARAM_STR);
 	$query->execute();
 
-		/*$sql = "SELECT administrador FROM usuarios WHERE Nombre ='".$_POST['nombre']."'";
-		$resultados = mysqli_query($conexion,$sql) or die(mysqli_error($conexion));
-
-		if ($fila = mysqli_fetch_array($resultados)) {
-	       	$_SESSION['administrador'] = $fila['administrador'];
-	    }*/ 
 	$result = $query->fetchAll();
 
 
@@ -32,9 +26,11 @@
 	if ($result) {
 		$_SESSION['administrador'] = $result[0][0];
 		$_SESSION['user'] = $result[0][1];
+		$_SESSION['id_usuario'] = $result[0][2];
 	}else{
 		$_SESSION['user'] = "Ninguno";
 		$_SESSION['administrador'] = "Ninguno";
+		$_SESSION['id_usuario'] = 0;
 		$nombre = "Ninguno";
 		$administrador = "Ninguno";
 	}

@@ -1,8 +1,9 @@
 <?php
-
+    error_reporting(E_ALL);
     include ('../modelo/conexion.php');
     include ('../modelo/videojuego.php');
     session_start();
+    
     /**
      * En este controlador se distingue entre los botones pulsados para Eliminar, Modificar, Comprar y Añadir a la lista de deseados
      * En el caso de Eliminar simplemente se ejecuta la funcion de 'videojuego' 'delete()' entregandole los valores
@@ -17,6 +18,7 @@
     $_SESSION['id_producto'] = $_POST['id_producto1'];
     $array = [(float)$_POST["precio"], (float)$_POST["stock"], $_POST["imagen"],(int)$_POST["id_categoria"],$_POST["descripcion"],$_POST["nombre_producto"],(float)$_POST['id_producto']];
     $_SESSION['Producto1'] = $array;
+
     if ($_POST["opcion"]=="Eliminar") {            
         $producto->delete();
         
@@ -27,7 +29,22 @@
     }elseif($_POST["opcion"]=="Comprar"){
 
     }elseif(($_POST["opcion"]=="Añadir a la lista de deseados")){
-
+        producto::AnadirDeseado((float)$_SESSION['id_usuario'],(float)$_SESSION['id_producto']);
+        header("Location: admin.php");
     }
-
+    elseif(($_POST["opcion"]=="Eliminar de la lista de deseados")){
+        producto::EliminarDeseado((float)$_SESSION['id_usuario'],(float)$_SESSION['id_producto']);
+        header("Location: ../vista/ListaDeseados.php");
+    }
+    elseif(($_POST["opcion"]=="Actualizar Datos")){
+        header("Location: ../vista/modificarUsuario.php");
+        
+    }
+    elseif(($_POST["opcion"]=="Cambiar Contrasena")){
+        header("Location: ../vista/CambiarContrasena.php");
+    }
+    elseif(($_POST["opcion"]=="Borrar")){
+        producto::BorrarComentario((float)$_SESSION['id_usuario'],(float)$_SESSION['id_producto'],$_POST['comentario']);
+        header("Location: ../vista/Valoraciones.php");
+    }
 ?>

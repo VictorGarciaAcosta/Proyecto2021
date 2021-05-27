@@ -1,13 +1,17 @@
 <?php
 
+error_reporting(E_ALL);
 
+include('../modelo/videojuego.php');
 session_start();
 
 $nombre = $_SESSION['user'];
 $administrador = $_SESSION['administrador'];
-
+$listado = producto::getUserInfo($_SESSION['id_usuario']);
 $ar = array($nombre, $administrador);
 json_encode($ar);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +23,7 @@ json_encode($ar);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../javascript/gestionUsuario.js"></script>
     <script>
         $(document).ready(function() {
             var ar = <?php echo json_encode($ar) ?>;
@@ -28,36 +33,31 @@ json_encode($ar);
                 
                 if (oDatos[0] == "Ninguno") {
                     document.getElementById('Perfil').style.display = 'none';
-                    document.getElementById('Comprar').style.display = 'none';
-                    document.getElementById('Eliminar').style.display = 'none';
-                    document.getElementById('Modificar').style.display = 'none';
-                    document.getElementById('ListaDeseados').style.display = 'none';
                     document.getElementById('Carrito').style.display = 'none';
                     document.getElementById('Lista').style.display = 'none';
                     document.getElementById('Logout').style.display = 'none';
-                    document.getElementById('Add').style.display = 'none';
+                    
                     document.getElementById('Signup').style.display = 'initial';
                     document.getElementById('Login').style.display = 'initial';
                 } else {
                     document.getElementById('Login').style.display = 'none';
                     document.getElementById('Perfil').style.display = 'initial';
                     document.getElementById('Signup').style.display = 'none';
-
+                    
                     if (oDatos[1] == '0') {
-                        document.getElementById('Modificar').style.display = 'none';
-                        document.getElementById('Eliminar').style.display = 'none';
-                        document.getElementById('Add').style.display = 'none';
+                        
+                        
                     } else {
                         if (oDatos[1] == '1') {
-                            document.getElementById('ListaDeseados').style.display = 'none';
                             document.getElementById('Lista').style.display = 'none';
                             document.getElementById('Carrito').style.display = 'none';
-                            document.getElementById('Comprar').style.display = 'none';
+                            
+                            
                         }
                     }
                 }
             }
-            //$.get("asignarUsuarios.php",comprobarUsuario,'json');
+            
 
         });
     </script>
@@ -71,8 +71,6 @@ json_encode($ar);
         <li id="Lista"><a href="ListaDeseados.php">Listado de Deseados</a></li>
         <li id="Carrito"><a href="Carrito.php">Carrito</a></li>
         <li><a href="Valoraciones.php">Valoraciones</a></li>
-        <li><input type="search" id="search" placeholder="Busca articulos"></li>
-        <li><button type="submit" id="btn-search">Busqueda</button></li>
 
         <li id="Perfil"><a href="Perfil.php" class="perfil"><img src="../IMAGENES/perfil.jpg" alt="Perfil" style="width: 40px; height:30px;" /></a></li>
 
@@ -82,16 +80,18 @@ json_encode($ar);
 
     </ul>
     <div class="content">
-        <div id="caja">
-
-        </div>
-        <form action="" id="Add"><input type="submit" value="Add"></form>
-        <form action="" id="Comprar"><input type="submit" value="Comprar"></form>
-        <form action="" id="Eliminar"><input type="submit" value="Eliminar"></form>
-        <form action="" id="Modificar"><input type="submit" value="Modificar"></form>
-        <form action="" id="ListaDeseados"><input type="submit" value="Añadir a la lista de deseados"></form>
+    <fieldset>
+                <legend name="<?php echo $listado['NOMBRE']; ?>"><?php echo $listado['NOMBRE']; ?> </legend>
+                <p><b>Apellidos </b><?php echo $listado['APELLIDOS']; ?></p>
+                <p><b>Email </b><?php echo $listado['EMAIL']; ?></p>
+                <p><b>Direccion </b><?php echo $listado['DIRECCION']; ?></p>
+                <br>
+                <form action="../controlador/control.php" method="post">
+                    <input type="submit" value="Cambiar Contrasena" name="opcion" class="Cambiar Contrasena"> 
+                    <input type="submit" value="Actualizar Datos" name="opcion" class="Actualizar Datos"> 
+                </form>
+            </fieldset>
     </div>
-
     <aside>
         <div class="social">
 

@@ -1,7 +1,7 @@
 <?php
+error_reporting(E_ALL);
 
-
-
+include('../modelo/videojuego.php');
 session_start();
 
 $nombre = $_SESSION['user'];
@@ -9,6 +9,8 @@ $administrador = $_SESSION['administrador'];
 
 $ar = array($nombre, $administrador);
 json_encode($ar);
+$listado = producto::getJuegosDeseados($_SESSION['id_usuario']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +28,7 @@ json_encode($ar);
             comprobarUsuario(ar);
 
             function comprobarUsuario(oDatos) {
-                
+
                 if (oDatos[0] == "Ninguno") {
                     document.getElementById('Perfil').style.display = 'none';
                     document.getElementById('Comprar').style.display = 'none';
@@ -58,7 +60,6 @@ json_encode($ar);
                     }
                 }
             }
-            //$.get("asignarUsuarios.php",comprobarUsuario,'json');
 
         });
     </script>
@@ -72,7 +73,7 @@ json_encode($ar);
         <li id="Lista"><a href="ListaDeseados.php">Listado de Deseados</a></li>
         <li id="Carrito"><a href="Carrito.php">Carrito</a></li>
         <li><a href="Valoraciones.php">Valoraciones</a></li>
-        <li><input type="search" id="search" placeholder="Busca articulos"></li>
+        <li><input type="search" id="search" name="search" list="modelos" placeholder="Busca articulos"></li>
         <li><button type="submit" id="btn-search">Busqueda</button></li>
 
         <li id="Perfil"><a href="Perfil.php" class="perfil"><img src="../IMAGENES/perfil.jpg" alt="Perfil" style="width: 40px; height:30px;" /></a></li>
@@ -83,19 +84,62 @@ json_encode($ar);
 
     </ul>
     <div class="content">
-        <div id="caja">
+        
+            <?php
 
-        </div>
-        <form action="" id="Add"><input type="submit" value="Add"></form>
-        <form action="" id="Comprar"><input type="submit" value="Comprar"></form>
-        <form action="" id="Eliminar"><input type="submit" value="Eliminar"></form>
-        <form action="" id="Modificar"><input type="submit" value="Modificar"></form>
-        <form action="" id="ListaDeseados"><input type="submit" value="Añadir a la lista de deseados"></form>
+            if(empty($listado)){
+                echo "No hay articulos en tu lista de deseados";
+            }else{
+
+            
+            foreach ($listado as $entrada) { 
+                $producto1[]=producto::getJuegosDeseados2($entrada['ID_PRODUCTO']);
+            }
+            foreach($producto1 as $listadofinal){
+                $categoria = producto::getCategoria($listadofinal['ID_CATEGORIA']);
+            ?>
+                <fieldset>
+                <legend name="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>"><?php echo $listadofinal['NOMBRE_PRODUCTO']; ?> </legend>
+                <img src="<?php echo ".".$listadofinal['IMAGEN']; ?>" alt="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
+                <p><b>Descripcion: <br /> </b><?php echo $listadofinal['DESCRIPCION']; ?></p>
+                <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
+                <p class="bloque"><b>Precio </b><?php echo $listadofinal['PRECIO'] . "€"; ?></p>
+                <p class="bloque"><b>Stock </b><?php echo $listadofinal['STOCK'] . " unidades"; ?></p>
+                <br>
+                <form action="../controlador/control.php" method="post">
+                    <input type="hidden" name="nombre_producto" value="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
+                    <input type="hidden" name="descripcion" value="<?php echo $listadofinal['DESCRIPCION']; ?>">
+                    <input type="hidden" name="id_categoria" value="<?php echo $listadofinal['ID_CATEGORIA']; ?>">
+                    <input type="hidden" name="imagen" value="<?php echo $listadofinal['IMAGEN']; ?>">
+                    <input type="hidden" name="precio" value="<?php echo $listadofinal['PRECIO']; ?>">
+                    <input type="hidden" name="stock" value="<?php echo $listadofinal['STOCK']; ?>">
+                    <input type="hidden" name="id_producto1" value="<?php echo $listadofinal['ID_PRODUCTO']; ?>">
+                    <input type="submit" value="Eliminar de la lista de deseados" name="opcion" class="ListaDeseados">
+                    <input type="submit" value="Comprar" name="opcion" class="Comprar">  
+                </form>
+            </fieldset>
+            <?php
+                }
+            }
+            // 
+            ?>
+        
+
+         <br><br><br>
     </div>
 
     <aside>
         <div class="social">
-
+            <datalist id="modelos">
+                <?php
+                /**
+                 * Por cada elemento de la lista deseados  se generan opciones de busqueda*/
+                foreach ($producto1 as $listadofinal) {
+                ?>
+                    <option value="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
+                    <?php }
+                    ?>
+            </datalist>
         </div>
     </aside>
     <div class="footer">

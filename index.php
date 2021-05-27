@@ -129,13 +129,13 @@
          */
 
         foreach ($listado as $entrada) {
-
+            $categoria = producto::getCategoria($entrada['ID_CATEGORIA']);
         ?>
             <fieldset>
                 <legend name="<?php echo $entrada['NOMBRE_PRODUCTO']; ?>"><?php echo $entrada['NOMBRE_PRODUCTO']; ?> </legend>
                 <img src="<?php echo $entrada['IMAGEN']; ?>" alt="<?php echo $entrada['NOMBRE_PRODUCTO']; ?>">
                 <p><b>Descripcion: <br /> </b><?php echo $entrada['DESCRIPCION']; ?></p>
-                <p class="bloque"> <b>Categoria </b><?php echo $entrada['ID_CATEGORIA']; ?></p>
+                <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
                 <p class="bloque"><b>Precio </b><?php echo $entrada['PRECIO'] . "€"; ?></p>
                 <p class="bloque"><b>Stock </b><?php echo $entrada['STOCK'] . " unidades"; ?></p>
                 <br>

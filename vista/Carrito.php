@@ -1,7 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
 
-
+include('../modelo/videojuego.php');
 session_start();
 
 $nombre = $_SESSION['user'];
@@ -9,6 +10,7 @@ $administrador = $_SESSION['administrador'];
 
 $ar = array($nombre, $administrador);
 json_encode($ar);
+$listado = producto::getCarrito();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +28,7 @@ json_encode($ar);
             comprobarUsuario(ar);
 
             function comprobarUsuario(oDatos) {
-                
+
                 if (oDatos[0] == "Ninguno") {
                     document.getElementById('Perfil').style.display = 'none';
                     document.getElementById('Comprar').style.display = 'none';
@@ -83,26 +85,56 @@ json_encode($ar);
 
     </ul>
     <div class="content">
-        <div id="caja">
+        <?php
 
+        if (empty($listado)) {
+            echo "No hay Valoraciones";
+        } else {
+            foreach ($listado as $listadofinal) {
+                $juego = producto::getJuego($listadofinal['ID_PRODUCTO']);
+                $user = producto::getUserInfo($listadofinal['ID_USUARIO']);
+                $categoria = producto::getCategoria($juego['ID_CATEGORIA']);
+
+        ?>
+                <fieldset>
+                    <legend name="<?php echo $user['NOMBRE']; ?>"><?php echo $user['NOMBRE'] . "  " . $user['APELLIDOS']; ?> </legend>
+                    <img src="<?php echo "." . $juego['IMAGEN']; ?>" alt="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
+                    <textarea name="Comentario" id="Comentario" cols="30" rows="10"><?php echo $listadofinal['COMENTARIO']; ?></textarea>
+                    <label><?php echo $listadofinal['PUNTUACION'] . "⭐"; ?></label>
+                    <p><b>Descripcion: <br /> </b><?php echo $juego['DESCRIPCION']; ?></p>
+                    <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
+                    <p class="bloque"><b>Precio </b><?php echo $juego['PRECIO'] . "€"; ?></p>
+                    <p class="bloque"><b>Stock </b><?php echo $juego['STOCK'] . " unidades"; ?></p>
+                    <br>
+                    <form action="../controlador/control.php" method="post">
+                        <input type="hidden" name="nombre_producto" value="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
+                        <input type="hidden" name="descripcion" value="<?php echo $juego['DESCRIPCION']; ?>">
+                        <input type="hidden" name="id_categoria" value="<?php echo $juego['ID_CATEGORIA']; ?>">
+                        <input type="hidden" name="imagen" value="<?php echo $juego['IMAGEN']; ?>">
+                        <input type="hidden" name="precio" value="<?php echo $juego['PRECIO']; ?>">
+                        <input type="hidden" name="stock" value="<?php echo $juego['STOCK']; ?>">
+                        <input type="hidden" name="id_producto1" value="<?php echo $juego['ID_PRODUCTO']; ?>">
+                        <input type="hidden" name="id_producto" value="<?php echo $juego['ID_PRODUCTO']; ?>">
+                        <input type="submit" value="Añadir a la lista de deseados" name="opcion" class="ListaDeseados">
+                        <input type="submit" value="Comprar" name="opcion" class="Comprar">
+                    </form>
+                </fieldset>
+        <?php
+            }
+        }
+        // 
+        ?>
+    <br><br>
+        <aside>
+            <div class="social">
+
+            </div>
+        </aside>
+        <div class="footer">
+            <p class="footer-content">C/binefar bloque 3 1ºA</p>
+            <p class="footer-content" id="telefono">627120850</p>
+            <p class="footer-content">caiman3lol@gmail.com</p>
         </div>
-        <form action="" id="Add"><input type="submit" value="Add"></form>
-        <form action="" id="Comprar"><input type="submit" value="Comprar"></form>
-        <form action="" id="Eliminar"><input type="submit" value="Eliminar"></form>
-        <form action="" id="Modificar"><input type="submit" value="Modificar"></form>
-        <form action="" id="ListaDeseados"><input type="submit" value="Añadir a la lista de deseados"></form>
-    </div>
-
-    <aside>
-        <div class="social">
-
-        </div>
-    </aside>
-    <div class="footer">
-        <p class="footer-content">C/binefar bloque 3 1ºA</p>
-        <p class="footer-content" id="telefono">627120850</p>
-        <p class="footer-content">caiman3lol@gmail.com</p>
-    </div>
 </body>
 
 </html>

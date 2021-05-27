@@ -8,7 +8,9 @@ body {
     margin: 50px auto;
     text-align: center;
     width: 800px;
+    
 }
+
  
 h1 {
     font-family: 'Passion One';
@@ -66,3 +68,19 @@ p.error {
 p.error {
     background: orangered;
 }
+.ocultar {
+    display: none;
+}
+ 
+.mostrar {
+    display: block;
+}
+/*Footer-------------------------*/
+.footer-content{
+    display: inline-block;
+  }
+  #telefono{
+    padding-left: 33%;
+    padding-right: 33%;
+  }
+  

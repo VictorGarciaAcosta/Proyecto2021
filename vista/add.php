@@ -29,14 +29,10 @@ json_encode($ar);
                 
                 if (oDatos[0] == "Ninguno") {
                     document.getElementById('Perfil').style.display = 'none';
-                    document.getElementById('Comprar').style.display = 'none';
-                    document.getElementById('Eliminar').style.display = 'none';
-                    document.getElementById('Modificar').style.display = 'none';
-                    document.getElementById('ListaDeseados').style.display = 'none';
                     document.getElementById('Carrito').style.display = 'none';
                     document.getElementById('Lista').style.display = 'none';
                     document.getElementById('Logout').style.display = 'none';
-                    document.getElementById('Add').style.display = 'none';
+                    
                     document.getElementById('Signup').style.display = 'initial';
                     document.getElementById('Login').style.display = 'initial';
                 } else {
@@ -45,15 +41,11 @@ json_encode($ar);
                     document.getElementById('Signup').style.display = 'none';
 
                     if (oDatos[1] == '0') {
-                        document.getElementById('Modificar').style.display = 'none';
-                        document.getElementById('Eliminar').style.display = 'none';
-                        document.getElementById('Add').style.display = 'none';
+                        
                     } else {
                         if (oDatos[1] == '1') {
-                            document.getElementById('ListaDeseados').style.display = 'none';
                             document.getElementById('Lista').style.display = 'none';
                             document.getElementById('Carrito').style.display = 'none';
-                            document.getElementById('Comprar').style.display = 'none';
                         }
                     }
                 }
@@ -73,8 +65,6 @@ json_encode($ar);
         <li id="Lista"><a href="ListaDeseados.php">Listado de Deseados</a></li>
         <li id="Carrito"><a href="Carrito.php">Carrito</a></li>
         <li><a href="Valoraciones.php">Valoraciones</a></li>
-        <li><input type="search" id="search" placeholder="Busca articulos"></li>
-        <li><button type="submit" id="btn-search">Busqueda</button></li>
 
         <li id="Perfil"><a href="Perfil.php" class="perfil"><img src="../IMAGENES/perfil.jpg" alt="Perfil" style="width: 40px; height:30px;" /></a></li>
 
