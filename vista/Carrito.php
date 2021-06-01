@@ -10,7 +10,10 @@ $administrador = $_SESSION['administrador'];
 
 $ar = array($nombre, $administrador);
 json_encode($ar);
-$listado = producto::getCarrito((float)$_SESSION['id_usuario']);
+$PedidoCarrito = producto::getCarrito((float)$_SESSION['id_usuario']);
+$ProductosPedido = producto::getProductosCarrito((float)$PedidoCarrito['ID_PEDIDO']);
+$user = producto::getUserInfo((float)$_SESSION['id_usuario']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +63,7 @@ $listado = producto::getCarrito((float)$_SESSION['id_usuario']);
                     }
                 }
             }
-            //$.get("asignarUsuarios.php",comprobarUsuario,'json');
+           
 
         });
     </script>
@@ -87,29 +90,17 @@ $listado = producto::getCarrito((float)$_SESSION['id_usuario']);
     <div class="content">
         <?php
 
-        if (empty($listado)) {
+        if (empty($ProductosPedido)) {
             echo "No productos en el carrito";
+            
         } else {
-            foreach ($listado as $listadofinal) {
-                print_r($listadofinal);
-                echo "<br>";
-                echo "<br>";echo "<br>";
-                $productos = producto::getProductosCarrito($listadofinal['ID_PEDIDO']);
+            foreach ($ProductosPedido as $Producto) {
+                $juego = producto::getJuego($Producto['ID_PRODUCTO']);
+                $categoria = producto::getCategoria($juego['ID_CATEGORIA']);
                 
-                print_r($productos);
-                foreach($productos as $productofinal){
-                    $juego = producto::getJuego($productofinal['ID_PRODUCTO']);
-                    $categoria = producto::getCategoria($juego['ID_CATEGORIA']);
-                    echo "<br>";
-                    print_r($juego);
-                }
-                
-                $user = producto::getUserInfo($listadofinal['ID_USUARIO']);
-                
-
         ?>
                 <fieldset>
-                    <legend name="<?php echo $user['NOMBRE']; ?>"><?php echo $user['NOMBRE'] . "  " . $user['APELLIDOS']; ?> </legend>
+                    <legend name="<?php echo $juego['NOMBRE_PRODUCTO']; ?>"><?php echo $juego['NOMBRE_PRODUCTO']; ?> </legend>
                     <img src="<?php echo "." . $juego['IMAGEN']; ?>" alt="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
                     <p><b>Descripcion: <br /> </b><?php echo $juego['DESCRIPCION']; ?></p>
                     <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>

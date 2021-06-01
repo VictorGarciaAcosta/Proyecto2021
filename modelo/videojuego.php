@@ -180,17 +180,44 @@
         public static function AnadirValoracion($usuario,$producto,$puntuacion,$comentario){
             $conn = new Conexion();            
             $sql = "INSERT INTO `valoracion` (`ID_USUARIO`, `ID_PRODUCTO`,`PUNTUACION`,`COMENTARIO`) VALUES ($usuario,$producto,$puntuacion,'$comentario')";
-            echo $sql;
+            
             $result = $conn->prepare($sql); 
+            $result->execute();
+            $conn=null;
+        }
+        public static function Comprar($usuario){
+            $conn = new Conexion();
+            $fecha = new DateTime();
+            $fechaformato = date_format($fecha, "d/m/Y");     
+            $sql = "INSERT INTO `pedido` (`COMPRADO`,`FECHA`,`ID_USUARIO`) VALUES (0,'$fechaformato',$usuario)";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            $conn=null;
+        }
+        public static function existePedido($usuario){
+            $conn = new Conexion(); 
+            $sql = "SELECT * FROM `pedido` WHERE `ID_USUARIO` = $usuario";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            $productos = $result->fetch(PDO::FETCH_ASSOC);
+            $conn=null;
+            
+            return $productos;  
+        }
+        public static function ComprarDetalle($pedido,$producto){
+            $conn = new Conexion();   
+            $sql = "INSERT INTO `detalle_pedido` (`CANTIDAD`,`DEVUELTO`,`ID_PEDIDO`,`ID_PRODUCTO`) VALUES (1,'N',$pedido,$producto)";
+            $result = $conn->prepare($sql); 
+            echo $sql;
             $result->execute();
             $conn=null;
         }
         public static function getCarrito($usuario) {            
             $conn = new Conexion(); 
-            $sql = "SELECT * FROM `pedido` WHERE `ID_USUARIO`=$usuario";
+            $sql = "SELECT * FROM `pedido` WHERE `ID_USUARIO`=$usuario AND `COMPRADO` = 0 ";
             $result = $conn->prepare($sql); 
             $result->execute();
-            $productos = $result->fetchAll(PDO::FETCH_ASSOC);
+            $productos = $result->fetch(PDO::FETCH_ASSOC);
             $conn=null;
             
             return $productos;    

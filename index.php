@@ -156,6 +156,7 @@ json_encode($ar);
                     <input type="hidden" name="imagen" value="<?php echo $entrada['IMAGEN']; ?>">
                     <input type="hidden" name="precio" value="<?php echo $entrada['PRECIO']; ?>">
                     <input type="hidden" name="stock" value="<?php echo $entrada['STOCK']; ?>">
+                    <input type="hidden" name="id_producto" value="<?php echo $entrada['ID_PRODUCTO']; ?>">
                     <input type="hidden" name="id_producto1" value="<?php echo $entrada['ID_PRODUCTO']; ?>">
                     <input type="submit" value="Modificar" name="opcion" class="Modificar">
                     <input type="submit" value="Comprar" name="opcion" class="Comprar">
