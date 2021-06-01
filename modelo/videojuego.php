@@ -177,9 +177,27 @@
             
             return $productos;    
         }
-        public static function getCarrito() {            
+        public static function AnadirValoracion($usuario,$producto,$puntuacion,$comentario){
+            $conn = new Conexion();            
+            $sql = "INSERT INTO `valoracion` (`ID_USUARIO`, `ID_PRODUCTO`,`PUNTUACION`,`COMENTARIO`) VALUES ($usuario,$producto,$puntuacion,'$comentario')";
+            echo $sql;
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            $conn=null;
+        }
+        public static function getCarrito($usuario) {            
             $conn = new Conexion(); 
-            $sql = "SELECT * FROM `PEDIDO`";
+            $sql = "SELECT * FROM `pedido` WHERE `ID_USUARIO`=$usuario";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            $productos = $result->fetchAll(PDO::FETCH_ASSOC);
+            $conn=null;
+            
+            return $productos;    
+        }
+        public static function getProductosCarrito($pedido) {            
+            $conn = new Conexion(); 
+            $sql = "SELECT * FROM `detalle_pedido` WHERE `ID_PEDIDO`=$pedido";
             $result = $conn->prepare($sql); 
             $result->execute();
             $productos = $result->fetchAll(PDO::FETCH_ASSOC);

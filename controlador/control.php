@@ -44,7 +44,11 @@
         header("Location: ../vista/CambiarContrasena.php");
     }
     elseif(($_POST["opcion"]=="Borrar")){
-        producto::BorrarComentario((float)$_SESSION['id_usuario'],(float)$_SESSION['id_producto'],$_POST['comentario']);
+        producto::BorrarComentario((float)$_POST['id_usuarioborrar'],(float)$_SESSION['id_producto'],$_POST['comentario']);
         header("Location: ../vista/Valoraciones.php");
     }
+    elseif(($_POST["opcion"]=="Valorar")){
+        header("Location: ../vista/AnadirValoraciones.php");
+    }
+    
 ?>

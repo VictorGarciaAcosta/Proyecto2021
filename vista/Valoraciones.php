@@ -125,7 +125,7 @@ $listado = producto::getValoraciones();
                     <img src="<?php echo "." . $juego['IMAGEN']; ?>" alt="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
                     <textarea name="Comentario" id="Comentario" cols="30" rows="10"><?php echo $listadofinal['COMENTARIO']; ?></textarea>
                     <label><?php echo $listadofinal['PUNTUACION'] . "⭐"; ?></label>
-                    <p><b>Descripcion: <br /> </b><?php echo $juego['DESCRIPCION']; ?></p>
+                    <p></p>
                     <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
                     <p class="bloque"><b>Precio </b><?php echo $juego['PRECIO'] . "€"; ?></p>
                     <p class="bloque"><b>Stock </b><?php echo $juego['STOCK'] . " unidades"; ?></p>
@@ -140,6 +140,7 @@ $listado = producto::getValoraciones();
                         <input type="hidden" name="id_producto1" value="<?php echo $juego['ID_PRODUCTO']; ?>">
                         <input type="hidden" name="id_producto" value="<?php echo $juego['ID_PRODUCTO']; ?>">
                         <input type="hidden" name="comentario" value="<?php echo $listadofinal['COMENTARIO']; ?>">
+                        <input type="hidden" name="id_usuarioborrar" value="<?php echo $user['ID_USUARIO']; ?>">
 
                         <input type="submit" value="Añadir a la lista de deseados" name="opcion" class="ListaDeseados">
                         <input type="submit" value="Comprar" name="opcion" class="Comprar">

@@ -115,7 +115,8 @@ $listado = producto::getJuegosDeseados($_SESSION['id_usuario']);
                     <input type="hidden" name="stock" value="<?php echo $listadofinal['STOCK']; ?>">
                     <input type="hidden" name="id_producto1" value="<?php echo $listadofinal['ID_PRODUCTO']; ?>">
                     <input type="submit" value="Eliminar de la lista de deseados" name="opcion" class="ListaDeseados">
-                    <input type="submit" value="Comprar" name="opcion" class="Comprar">  
+                    <input type="submit" value="Comprar" name="opcion" class="Comprar">
+                    <input type="submit" value="Valorar" name="opcion" class="Valorar">  
                 </form>
             </fieldset>
             <?php

@@ -1,18 +1,18 @@
 ﻿<?php
-    error_reporting(0);
+error_reporting(0);
 
-    include('./modelo/videojuego.php');
-    session_start();
-    if (!isset($_SESSION["administrador"])) {
-        header("location: ./controlador/logout.php");
-    }
-    $listado = producto::getJuegos();
+include('./modelo/videojuego.php');
+session_start();
+if (!isset($_SESSION["administrador"])) {
+    header("location: ./controlador/logout.php");
+}
+$listado = producto::getJuegos();
 
-    $nombre = $_SESSION['user'];
-    $administrador = $_SESSION['administrador'];
+$nombre = $_SESSION['user'];
+$administrador = $_SESSION['administrador'];
 
-    $ar = array($nombre, $administrador);
-    json_encode($ar);
+$ar = array($nombre, $administrador);
+json_encode($ar);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +41,11 @@
                     document.getElementById('Login').style.display = 'initial';
 
                     var comprar = document.getElementsByClassName("Comprar");
+                    var i;
+                    for (i = 0; i < comprar.length; i++) {
+                        comprar[i].style.display = "none";
+                    }
+                    var comprar = document.getElementsByClassName("Valorar");
                     var i;
                     for (i = 0; i < comprar.length; i++) {
                         comprar[i].style.display = "none";
@@ -87,6 +92,11 @@
                             var i;
                             for (i = 0; i < ListaDeseados.length; i++) {
                                 ListaDeseados[i].style.display = "none";
+                            }
+                            var comprar = document.getElementsByClassName("Valorar");
+                            var i;
+                            for (i = 0; i < comprar.length; i++) {
+                                comprar[i].style.display = "none";
                             }
                             var comprar = document.getElementsByClassName("Comprar");
                             var i;
@@ -150,6 +160,7 @@
                     <input type="submit" value="Modificar" name="opcion" class="Modificar">
                     <input type="submit" value="Comprar" name="opcion" class="Comprar">
                     <input type="submit" value="Añadir a la lista de deseados" name="opcion" class="ListaDeseados">
+                    <input type="submit" value="Valorar" name="opcion" class="Valorar">
                     <input type="submit" value="Eliminar" name="opcion" class="Eliminar">
                 </form>
             </fieldset>
