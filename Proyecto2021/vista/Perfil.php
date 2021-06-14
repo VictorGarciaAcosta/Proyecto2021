@@ -121,6 +121,7 @@ $PrecioTotal =0;
                         <input type="hidden" name="imagen" value="<?php echo $juego['IMAGEN']; ?>">
                         <input type="hidden" name="precio" value="<?php echo $juego['PRECIO']; ?>">
                         <input type="hidden" name="stock" value="<?php echo $juego['STOCK']; ?>">
+                        <input type="hidden" name="pedido" value="<?php echo $producto['ID_PEDIDO']; ?>">
                         <input type="hidden" name="id_producto1" value="<?php echo $juego['ID_PRODUCTO']; ?>">
                         <input type="hidden" name="id_producto" value="<?php echo $juego['ID_PRODUCTO']; ?>">                     
                         <input type="submit" value="Devolver" name="opcion" class="Devolver">  

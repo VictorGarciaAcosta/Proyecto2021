@@ -53,23 +53,36 @@
     elseif(($_POST["opcion"]=="BorrarDelCarrito")){
         $pedido = producto::getCarrito((float)$_SESSION['id_usuario']);
         producto::BorrarPedido((float)$pedido['ID_PEDIDO'],(float)$_SESSION['id_producto']);
+        producto::DevuelveCompra((float)$_SESSION['id_producto']);
         header("Location: ../vista/Carrito.php");
     }
     elseif(($_POST["opcion"]=="FinalizarCompra")){
         producto::ComprarPedido($_POST['id_pedido']);
+        $ProductosPedido = producto::getProductosCarrito($_POST['id_pedido']); 
+        $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
+        producto::EnviarEmail($user['EMAIL'],$ProductosPedido);
         header("Location: ../vista/Carrito.php");
     }
-    elseif(($_POST["opcion"]=="Comprar")){
+    elseif(($_POST["opcion"]=="Comprar")&& (float)$_POST["stock"] > 0 ){
         if(producto::existePedido((float)$_SESSION['id_usuario'])){
             $pedido = producto::getCarrito((float)$_SESSION['id_usuario']);
             producto::ComprarDetalle((float)$pedido['ID_PEDIDO'],(float)$_SESSION['id_producto']);
+            producto::RecibeCompra((float)$_SESSION['id_producto']);
             header("Location: admin.php");
         }else{
             producto::Comprar((float)$_SESSION['id_usuario']);
             $pedido = producto::getCarrito((float)$_SESSION['id_usuario']);
             producto::ComprarDetalle((float)$pedido['ID_PEDIDO'],(float)$_SESSION['id_producto']);
+            producto::RecibeCompra((float)$_SESSION['id_producto']);
             header("Location: admin.php");
         } 
+    }
+    elseif(($_POST["opcion"]=="Devolver")){
+        producto::DevolverJuego($_POST['pedido'],$_POST['id_producto']);
+        producto::DevuelveCompra($_POST['id_producto']);
+        header("Location: ../vista/perfil.php");
+    }else{
+        header("Location: admin.php");
     }
     
 ?>
