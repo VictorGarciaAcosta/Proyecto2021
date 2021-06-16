@@ -332,6 +332,54 @@
             echo $mensaje;
             mail($email, 'Usted ha comprado los siguientes productos ', $mensaje);
         }
+        public static function getAllUsers(){
+            $conn = new Conexion(); 
+            $sql = "SELECT * FROM `usuario` WHERE `ADMINISTRADOR`=0 ";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            $productos = $result->fetchAll(PDO::FETCH_ASSOC);
+            $conn=null;
+            
+            return $productos;    
+        }
+        public static function BorrarUser($user){
+            $conn = new Conexion();
+            $sql = "SELECT ID_PEDIDO FROM `pedido` WHERE `ID_USUARIO`=$user AND `COMPRADO`= 0";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            $pedidosId = $result->fetchAll(PDO::FETCH_ASSOC);
+            print_r($pedidosId);
+            if($pedidosId){
+                foreach ($pedidosId as $Id){
+                    $aux = $Id['ID_PEDIDO'];
+                    $sql = "DELETE FROM `detalle_pedido` WHERE `ID_PEDIDO`=$aux ";
+                    $result = $conn->prepare($sql); 
+                    $result->execute();
+                    print_r($Id);
+                    
+                }
+            }
+            $sql = "DELETE FROM `pedido` WHERE `ID_USUARIO`=$user AND `COMPRADO`= 0 ";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            echo "<br>".$sql."<br>";
+            
+            $sql = "DELETE FROM `lista_deseos` WHERE `ID_USUARIO`=$user ";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            echo $sql."<br>";
 
+            $sql = "DELETE FROM `valoracion` WHERE `ID_USUARIO`=$user ";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            echo $sql."<br>";
+                           
+            $sql = "DELETE FROM `usuario` WHERE `ID_USUARIO`=$user ";
+            $result = $conn->prepare($sql); 
+            $result->execute();
+            echo $sql."<br>";
+            
+            $conn=null;
+        }
     }
     ?>

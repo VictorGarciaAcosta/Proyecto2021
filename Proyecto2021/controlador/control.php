@@ -81,6 +81,13 @@
         producto::DevolverJuego($_POST['pedido'],$_POST['id_producto']);
         producto::DevuelveCompra($_POST['id_producto']);
         header("Location: ../vista/perfil.php");
+    }
+    elseif(($_POST["opcion"]=="BorrarUser")){
+        producto::BorrarUser($_POST['id_usuario']);
+        //header("Location: ../vista/perfil.php");
+    }elseif(($_POST["opcion"]=="ActualizarDatos")){
+        $_SESSION['ActualizarDatos'] = $_POST['id_usuario'];
+        header("Location: ../vista/modificarUsuario.php");
     }else{
         header("Location: admin.php");
     }

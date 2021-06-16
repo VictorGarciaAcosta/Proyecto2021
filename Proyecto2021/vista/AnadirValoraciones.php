@@ -1,5 +1,7 @@
 <?php
+error_reporting(E_ALL);
 
+include('../modelo/videojuego.php');
 
 
 session_start();
@@ -51,8 +53,6 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
                     }
                 }
             }
-            //$.get("asignarUsuarios.php",comprobarUsuario,'json');
-
         });
     </script>
     <title>Tienda Videojuegos</title>

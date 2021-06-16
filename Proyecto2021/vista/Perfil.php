@@ -12,6 +12,8 @@ $ar = array($nombre, $administrador);
 json_encode($ar);
 $HistorialCompra = producto::getHistorialCompra((float)$_SESSION['id_usuario']);
 $PrecioTotal =0;
+
+$Usuarios = producto::getAllUsers();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,12 +47,13 @@ $PrecioTotal =0;
                     document.getElementById('Signup').style.display = 'none';
                     
                     if (oDatos[1] == '0') {
-                        
+                        document.getElementById('Gestion').style.display = 'none';
                         
                     } else {
                         if (oDatos[1] == '1') {
                             document.getElementById('Lista').style.display = 'none';
                             document.getElementById('Carrito').style.display = 'none';
+                            document.getElementById('Historial').style.display = 'none';
                             
                             
                         }
@@ -81,7 +84,7 @@ $PrecioTotal =0;
     </ul>
     <div class="content">
     <fieldset>
-                <legend name="<?php echo $user['NOMBRE']; ?>"><?php echo $user['NOMBRE']; ?> </legend>
+                <legend name="<?php echo $user['NOMBRE']; ?>"><b>Nombre </b><?php echo $user['NOMBRE']; ?> </legend>
                 <p><b>Apellidos </b><?php echo $user['APELLIDOS']; ?></p>
                 <p><b>Email </b><?php echo $user['EMAIL']; ?></p>
                 <p><b>Direccion </b><?php echo $user['DIRECCION']; ?></p>
@@ -91,6 +94,8 @@ $PrecioTotal =0;
                     <input type="submit" value="Actualizar Datos" name="opcion" class="Actualizar Datos"> 
                 </form>
     </fieldset>
+    <br>
+    <div id="Historial">
     <?php
     
     if (empty($HistorialCompra)) {
@@ -134,6 +139,27 @@ $PrecioTotal =0;
         ?>
         <h2>Precio Total <?php echo $PrecioTotal. "€"; ?></h2>
         <br><br><br><br>
+    </div>
+    <div id="Gestion">
+        <h1>Gestion de Usuarios</h1>
+        <?php
+            foreach($Usuarios as $Usuario){
+                ?>
+                <fieldset>
+                    <p class="bloque" name="<?php echo $Usuario['NOMBRE']." ".$Usuario['APELLIDOS']; ?>"><b><?php echo $Usuario['NOMBRE']." ".$Usuario['APELLIDOS']; ?></b> </p>
+                    <p><b>Email </b><?php echo $Usuario['EMAIL']; ?></p>
+                    <p><b>Direccion </b><?php echo $Usuario['DIRECCION']; ?></p>
+                    <form action="../controlador/control.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?php echo $Usuario['ID_USUARIO']; ?>">                     
+                        <input type="submit" value="BorrarUser" name="opcion" class="BorrarUser">
+                        <input type="submit" value="ActualizarDatos" name="opcion" class="ActualizarDatos"> 
+                    </form>
+                </fieldset>
+            <?php
+            }
+        ?>
+        <br><br><br><br>
+    </div>
     </div>
     <aside>
         <div class="social">

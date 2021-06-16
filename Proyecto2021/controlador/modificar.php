@@ -10,7 +10,7 @@
         header("Location: admin.php");
 
     }elseif(isset($_POST["AceptarCambios"])){
-        producto::UpdateUser((float)$_SESSION['id_usuario'],$_POST['NOMBRE'],$_POST["APELLIDOS"],$_POST["EMAIL"],$_POST["DIRECCION"]);
+        producto::UpdateUser((float)$_POST['id_usuario'],$_POST['NOMBRE'],$_POST["APELLIDOS"],$_POST["EMAIL"],$_POST["DIRECCION"]);
         header("Location: ../vista/Perfil.php");
     }
     elseif(isset($_POST["CambiarPassword"])){
