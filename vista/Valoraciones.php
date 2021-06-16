@@ -121,7 +121,7 @@ $listado = producto::getValoraciones();
 
         ?>
                 <fieldset>
-                    <legend name="<?php echo $user['NOMBRE']; ?>"><?php echo $user['NOMBRE'] . "  " . $user['APELLIDOS']; ?> </legend>
+                    <legend name="<?php echo $user['NOMBRE']; ?>"><b><?php echo $user['NOMBRE'] . "  " . $user['APELLIDOS']; ?> </b></legend>
                     <img src="<?php echo "." . $juego['IMAGEN']; ?>" alt="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
                     <textarea name="Comentario" id="Comentario" cols="30" rows="10"><?php echo $listadofinal['COMENTARIO']; ?></textarea>
                     <label><?php echo $listadofinal['PUNTUACION'] . "⭐"; ?></label>

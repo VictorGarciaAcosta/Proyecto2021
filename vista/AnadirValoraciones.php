@@ -1,5 +1,7 @@
 <?php
+error_reporting(E_ALL);
 
+include('../modelo/videojuego.php');
 
 
 session_start();
@@ -9,6 +11,7 @@ $administrador = $_SESSION['administrador'];
 
 $ar = array($nombre, $administrador);
 json_encode($ar);
+$user = producto::getUserInfo((float)$_SESSION['id_usuario']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +53,6 @@ json_encode($ar);
                     }
                 }
             }
-            //$.get("asignarUsuarios.php",comprobarUsuario,'json');
-
         });
     </script>
     <title>Tienda Videojuegos</title>
@@ -88,10 +89,10 @@ json_encode($ar);
         </div>
     </aside>
     <div class="footer">
-        <p class="footer-content">C/binefar bloque 3 1ºA</p>
-        <p class="footer-content" id="telefono">627120850</p>
-        <p class="footer-content">caiman3lol@gmail.com</p>
-    </div>
+            <p class="footer-content"><?php echo $user['DIRECCION'];?></p>
+            <p class="footer-content" id="telefono">627120850</p>
+            <p class="footer-content"><?php echo $user['EMAIL'];?></p>
+        </div>
 </body>
 
 </html>

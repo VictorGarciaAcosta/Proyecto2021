@@ -7,11 +7,13 @@ session_start();
 
 $nombre = $_SESSION['user'];
 $administrador = $_SESSION['administrador'];
-$listado = producto::getUserInfo($_SESSION['id_usuario']);
+$user = producto::getUserInfo($_SESSION['id_usuario']);
 $ar = array($nombre, $administrador);
 json_encode($ar);
+$HistorialCompra = producto::getHistorialCompra((float)$_SESSION['id_usuario']);
+$PrecioTotal =0;
 
-
+$Usuarios = producto::getAllUsers();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,12 +47,13 @@ json_encode($ar);
                     document.getElementById('Signup').style.display = 'none';
                     
                     if (oDatos[1] == '0') {
-                        
+                        document.getElementById('Gestion').style.display = 'none';
                         
                     } else {
                         if (oDatos[1] == '1') {
                             document.getElementById('Lista').style.display = 'none';
                             document.getElementById('Carrito').style.display = 'none';
+                            document.getElementById('Historial').style.display = 'none';
                             
                             
                         }
@@ -81,16 +84,82 @@ json_encode($ar);
     </ul>
     <div class="content">
     <fieldset>
-                <legend name="<?php echo $listado['NOMBRE']; ?>"><?php echo $listado['NOMBRE']; ?> </legend>
-                <p><b>Apellidos </b><?php echo $listado['APELLIDOS']; ?></p>
-                <p><b>Email </b><?php echo $listado['EMAIL']; ?></p>
-                <p><b>Direccion </b><?php echo $listado['DIRECCION']; ?></p>
+                <legend name="<?php echo $user['NOMBRE']; ?>"><b>Nombre </b><?php echo $user['NOMBRE']; ?> </legend>
+                <p><b>Apellidos </b><?php echo $user['APELLIDOS']; ?></p>
+                <p><b>Email </b><?php echo $user['EMAIL']; ?></p>
+                <p><b>Direccion </b><?php echo $user['DIRECCION']; ?></p>
                 <br>
                 <form action="../controlador/control.php" method="post">
                     <input type="submit" value="Cambiar Contrasena" name="opcion" class="Cambiar Contrasena"> 
                     <input type="submit" value="Actualizar Datos" name="opcion" class="Actualizar Datos"> 
                 </form>
-            </fieldset>
+    </fieldset>
+    <br>
+    <div id="Historial">
+    <?php
+    
+    if (empty($HistorialCompra)) {
+            echo "No Se han Realizado Compras";
+            
+        } else {
+            ?>
+            <h1>Historial de Compras</h1>
+            <?php
+            foreach ($HistorialCompra as $Pedido) {
+                $detalles = producto::getProductosCarrito($Pedido['ID_PEDIDO']);
+                foreach($detalles as $producto){
+                
+                $juego = producto::getJuego($producto['ID_PRODUCTO']);
+                $categoria = producto::getCategoria($juego['ID_CATEGORIA']);
+                $PrecioTotal = $PrecioTotal + $juego['PRECIO'];
+                
+        ?>
+            
+                <fieldset>
+                    <p class="bloque" name="<?php echo $juego['NOMBRE_PRODUCTO']; ?>"><?php echo $juego['NOMBRE_PRODUCTO']; ?> </p>
+                    <p class="bloque"><b>Precio </b><?php echo $juego['PRECIO'] . "€"; ?></p>
+                    <br>
+                    <form action="../controlador/control.php" method="post">
+                        <input type="hidden" name="nombre_producto" value="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
+                        <input type="hidden" name="descripcion" value="<?php echo $juego['DESCRIPCION']; ?>">
+                        <input type="hidden" name="id_categoria" value="<?php echo $juego['ID_CATEGORIA']; ?>">
+                        <input type="hidden" name="imagen" value="<?php echo $juego['IMAGEN']; ?>">
+                        <input type="hidden" name="precio" value="<?php echo $juego['PRECIO']; ?>">
+                        <input type="hidden" name="stock" value="<?php echo $juego['STOCK']; ?>">
+                        <input type="hidden" name="pedido" value="<?php echo $producto['ID_PEDIDO']; ?>">
+                        <input type="hidden" name="id_producto1" value="<?php echo $juego['ID_PRODUCTO']; ?>">
+                        <input type="hidden" name="id_producto" value="<?php echo $juego['ID_PRODUCTO']; ?>">                     
+                        <input type="submit" value="Devolver" name="opcion" class="Devolver">  
+                    </form>
+                </fieldset>
+        <?php
+                }
+            }
+        }
+        ?>
+        <h2>Precio Total <?php echo $PrecioTotal. "€"; ?></h2>
+        <br><br><br><br>
+    </div>
+    <div id="Gestion">
+        <h1>Gestion de Usuarios</h1>
+        <?php
+            foreach($Usuarios as $Usuario){
+                ?>
+                <fieldset>
+                    <p class="bloque" name="<?php echo $Usuario['NOMBRE']." ".$Usuario['APELLIDOS']; ?>"><b><?php echo $Usuario['NOMBRE']." ".$Usuario['APELLIDOS']; ?></b> </p>
+                    <p><b>Email </b><?php echo $Usuario['EMAIL']; ?></p>
+                    <p><b>Direccion </b><?php echo $Usuario['DIRECCION']; ?></p>
+                    <form action="../controlador/control.php" method="post">
+                        <input type="hidden" name="id_usuario" value="<?php echo $Usuario['ID_USUARIO']; ?>">                     
+                        <input type="submit" value="BorrarUser" name="opcion" class="BorrarUser">
+                        <input type="submit" value="ActualizarDatos" name="opcion" class="ActualizarDatos"> 
+                    </form>
+                </fieldset>
+            <?php
+            }
+        ?>
+        <br><br><br><br>
+    </div>
     </div>
     <aside>
         <div class="social">
@@ -98,10 +167,10 @@ json_encode($ar);
         </div>
     </aside>
     <div class="footer">
-        <p class="footer-content">C/binefar bloque 3 1ºA</p>
-        <p class="footer-content" id="telefono">627120850</p>
-        <p class="footer-content">caiman3lol@gmail.com</p>
-    </div>
+            <p class="footer-content"><?php echo $user['DIRECCION'];?></p>
+            <p class="footer-content" id="telefono">627120850</p>
+            <p class="footer-content"><?php echo $user['EMAIL'];?></p>
+        </div>
 </body>
 
 </html>

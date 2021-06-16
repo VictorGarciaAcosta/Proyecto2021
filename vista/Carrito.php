@@ -11,9 +11,11 @@ $administrador = $_SESSION['administrador'];
 $ar = array($nombre, $administrador);
 json_encode($ar);
 $PedidoCarrito = producto::getCarrito((float)$_SESSION['id_usuario']);
-$ProductosPedido = producto::getProductosCarrito((float)$PedidoCarrito['ID_PEDIDO']);
+if (!empty($PedidoCarrito)) {
+    $ProductosPedido = producto::getProductosCarrito((float)$PedidoCarrito['ID_PEDIDO']);  
+}
 $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
-
+$PrecioTotal = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,6 +99,7 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
             foreach ($ProductosPedido as $Producto) {
                 $juego = producto::getJuego($Producto['ID_PRODUCTO']);
                 $categoria = producto::getCategoria($juego['ID_CATEGORIA']);
+                $PrecioTotal = $PrecioTotal + $juego['PRECIO'];
                 
         ?>
                 <fieldset>
@@ -115,7 +118,8 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
                         <input type="hidden" name="precio" value="<?php echo $juego['PRECIO']; ?>">
                         <input type="hidden" name="stock" value="<?php echo $juego['STOCK']; ?>">
                         <input type="hidden" name="id_producto1" value="<?php echo $juego['ID_PRODUCTO']; ?>">
-                        <input type="hidden" name="id_producto" value="<?php echo $juego['ID_PRODUCTO']; ?>">                      
+                        <input type="hidden" name="id_producto" value="<?php echo $juego['ID_PRODUCTO']; ?>">
+                        <input type="submit" value="BorrarDelCarrito" name="opcion" class="BorrarDelCarrito">                      
                         <input type="submit" value="Valorar" name="opcion" class="Valorar">  
                     </form>
                 </fieldset>
@@ -124,16 +128,33 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
         }
         // 
         ?>
+        <?php
+          if (empty($ProductosPedido)) {
+             
+          }else{
+
+         
+        ?>
+        <h2>Precio total de compra: <?php echo $PrecioTotal. "€"; ?> </h2>
+        <form action="../controlador/control.php" method="post">
+            <input type="hidden" name="id_pedido" value="<?php echo (float)$PedidoCarrito['ID_PEDIDO']; ?>">                    
+            <input type="submit" value="FinalizarCompra" name="opcion" id="FinalizaCompra">  
+        </form>
+        <?php
+         }
+         ?>
     <br><br>
+    <br><br>
+        
         <aside>
             <div class="social">
 
             </div>
         </aside>
         <div class="footer">
-            <p class="footer-content">C/binefar bloque 3 1ºA</p>
+            <p class="footer-content"><?php echo $user['DIRECCION'];?></p>
             <p class="footer-content" id="telefono">627120850</p>
-            <p class="footer-content">caiman3lol@gmail.com</p>
+            <p class="footer-content"><?php echo $user['EMAIL'];?></p>
         </div>
 </body>
 

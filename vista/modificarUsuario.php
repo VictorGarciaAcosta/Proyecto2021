@@ -10,6 +10,11 @@ $administrador = $_SESSION['administrador'];
 $ar = array($nombre, $administrador);
 json_encode($ar);
 $listado = producto::getUserInfo($_SESSION['id_usuario']);
+if($_SESSION['ActualizarDatos']){
+    $listado = producto::getUserInfo($_SESSION['ActualizarDatos']);
+    $_SESSION['ActualizarDatos'] ="";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +96,8 @@ $listado = producto::getUserInfo($_SESSION['id_usuario']);
             <label for="">Apellidos</label><br><input type="text" name="APELLIDOS" value="<?php echo $listado['APELLIDOS']?>" required><br>
             <label for="">EMAIL</label><br><input type="text" name="EMAIL" value="<?php echo $listado['EMAIL']?>" required><br>
             <label for="">DIRECCION</label><br><input type="text" name="DIRECCION" value="<?php echo $listado['DIRECCION']?>" required><br>
-            <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>">
+            <input type="hidden" name="id_usuario" value="<?php echo $listado['ID_USUARIO']; ?>">
+            
             <input type="submit" value="Aceptar Cambios" name="AceptarCambios">
         </form>
     </div>

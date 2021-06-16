@@ -10,6 +10,7 @@ $administrador = $_SESSION['administrador'];
 $ar = array($nombre, $administrador);
 json_encode($ar);
 $listado = producto::getJuegosDeseados($_SESSION['id_usuario']);
+$user = producto::getUserInfo((float)$_SESSION['id_usuario']);
 
 ?>
 <!DOCTYPE html>
@@ -144,10 +145,10 @@ $listado = producto::getJuegosDeseados($_SESSION['id_usuario']);
         </div>
     </aside>
     <div class="footer">
-        <p class="footer-content">C/binefar bloque 3 1ºA</p>
-        <p class="footer-content" id="telefono">627120850</p>
-        <p class="footer-content">caiman3lol@gmail.com</p>
-    </div>
+            <p class="footer-content"><?php echo $user['DIRECCION'];?></p>
+            <p class="footer-content" id="telefono">627120850</p>
+            <p class="footer-content"><?php echo $user['EMAIL'];?></p>
+        </div>
 </body>
 
 </html>
