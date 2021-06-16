@@ -1,5 +1,7 @@
 <?php
+error_reporting(E_ALL);
 
+include('../modelo/videojuego.php');
 
 
 session_start();

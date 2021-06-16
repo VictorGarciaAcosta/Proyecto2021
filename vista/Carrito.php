@@ -104,7 +104,7 @@ $PrecioTotal = 0;
         ?>
                 <fieldset>
                     <legend name="<?php echo $juego['NOMBRE_PRODUCTO']; ?>"><?php echo $juego['NOMBRE_PRODUCTO']; ?> </legend>
-                    <img src="<?php echo "." . $juego['IMAGEN']; ?>" alt="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
+                    <img src="<?php echo $juego['IMAGEN']; ?>" alt="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
                     <p><b>Descripcion: <br /> </b><?php echo $juego['DESCRIPCION']; ?></p>
                     <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
                     <p class="bloque"><b>Precio </b><?php echo $juego['PRECIO'] . "€"; ?></p>

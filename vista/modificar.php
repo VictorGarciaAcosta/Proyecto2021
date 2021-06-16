@@ -72,7 +72,7 @@
         <form action="../controlador/modificar.php" method="post">                
             <fieldset>
                     <legend name="<?php echo $indice[5]; ?>"><?php echo $indice[5]; ?> </legend>
-                    <img src="<?php echo ".".$indice[2]; ?>" alt="<?php echo $indice[5]; ?>">
+                    <img src="<?php echo $indice[2]; ?>" alt="<?php echo $indice[5]; ?>">
                     <p><b>Descripcion: <br /> </b><?php echo $indice[4]; ?></p>
                     <p class="bloque"> <b>Categoria </b><?php echo $indice[3]; ?></p>
                     <p class="bloque"><b>Precio </b><?php echo $indice[0] . "€"; ?></p>

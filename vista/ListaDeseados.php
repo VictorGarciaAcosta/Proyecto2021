@@ -91,17 +91,16 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
             if(empty($listado)){
                 echo "No hay articulos en tu lista de deseados";
             }else{
-
-            
             foreach ($listado as $entrada) { 
-                $producto1[]=producto::getJuegosDeseados2($entrada['ID_PRODUCTO']);
+                $producto1[]=producto::getJuegosDeseados2($entrada['ID_PRODUCTO']);    
             }
             foreach($producto1 as $listadofinal){
                 $categoria = producto::getCategoria($listadofinal['ID_CATEGORIA']);
+                
             ?>
                 <fieldset>
                 <legend name="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>"><?php echo $listadofinal['NOMBRE_PRODUCTO']; ?> </legend>
-                <img src="<?php echo ".".$listadofinal['IMAGEN']; ?>" alt="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
+                <img src="<?php echo $listadofinal['IMAGEN']; ?>" alt="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
                 <p><b>Descripcion: <br /> </b><?php echo $listadofinal['DESCRIPCION']; ?></p>
                 <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
                 <p class="bloque"><b>Precio </b><?php echo $listadofinal['PRECIO'] . "€"; ?></p>

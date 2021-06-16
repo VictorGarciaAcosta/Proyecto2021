@@ -135,7 +135,7 @@
         }
         public static function getJuegosDeseados2($producto) {            
             $conn = new Conexion(); 
-            $sql = "SELECT * FROM `producto` WHERE ID_PRODUCTO = $producto[0]";
+            $sql = "SELECT * FROM `producto` WHERE ID_PRODUCTO = $producto";
             $result = $conn->prepare($sql); 
             $result->execute();
             $productos = $result->fetch(PDO::FETCH_ASSOC);
