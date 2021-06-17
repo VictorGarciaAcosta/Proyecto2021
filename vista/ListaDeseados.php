@@ -85,48 +85,45 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
 
     </ul>
     <div class="content">
-        
-            <?php
 
-            if(empty($listado)){
-                echo "No hay articulos en tu lista de deseados";
-            }else{
-            foreach ($listado as $entrada) { 
-                $producto1[]=producto::getJuegosDeseados2($entrada['ID_PRODUCTO']);    
+        <?php
+
+        if (empty($listado)) {
+            echo "No hay articulos en tu lista de deseados";
+        } else {
+            foreach ($listado as $entrada) {
+                $producto1[] = producto::getJuegosDeseados2($entrada['ID_PRODUCTO']);
             }
-            foreach($producto1 as $listadofinal){
+            foreach ($producto1 as $listadofinal) {
                 $categoria = producto::getCategoria($listadofinal['ID_CATEGORIA']);
-                
-            ?>
-                <fieldset>
-                <legend name="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>"><?php echo $listadofinal['NOMBRE_PRODUCTO']; ?> </legend>
-                <img src="<?php echo $listadofinal['IMAGEN']; ?>" alt="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
-                <p><b>Descripcion: <br /> </b><?php echo $listadofinal['DESCRIPCION']; ?></p>
-                <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
-                <p class="bloque"><b>Precio </b><?php echo $listadofinal['PRECIO'] . "€"; ?></p>
-                <p class="bloque"><b>Stock </b><?php echo $listadofinal['STOCK'] . " unidades"; ?></p>
-                <br>
-                <form action="../controlador/control.php" method="post">
-                    <input type="hidden" name="nombre_producto" value="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
-                    <input type="hidden" name="descripcion" value="<?php echo $listadofinal['DESCRIPCION']; ?>">
-                    <input type="hidden" name="id_categoria" value="<?php echo $listadofinal['ID_CATEGORIA']; ?>">
-                    <input type="hidden" name="imagen" value="<?php echo $listadofinal['IMAGEN']; ?>">
-                    <input type="hidden" name="precio" value="<?php echo $listadofinal['PRECIO']; ?>">
-                    <input type="hidden" name="stock" value="<?php echo $listadofinal['STOCK']; ?>">
-                    <input type="hidden" name="id_producto1" value="<?php echo $listadofinal['ID_PRODUCTO']; ?>">
-                    <input type="submit" value="Eliminar de la lista de deseados" name="opcion" class="ListaDeseados">
-                    <input type="submit" value="Comprar" name="opcion" class="Comprar">
-                    <input type="submit" value="Valorar" name="opcion" class="Valorar">  
-                </form>
-            </fieldset>
-            <?php
-                }
-            }
-            // 
-            ?>
-        
 
-         <br><br><br>
+        ?>
+                <fieldset>
+                    <legend name="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>"><?php echo $listadofinal['NOMBRE_PRODUCTO']; ?> </legend>
+                    <img src="<?php echo $listadofinal['IMAGEN']; ?>" alt="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
+                    <p><b>Descripcion: <br /> </b><?php echo $listadofinal['DESCRIPCION']; ?></p>
+                    <p class="bloque"><b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
+                    <p class="bloque"><b>Precio </b><?php echo $listadofinal['PRECIO'] . "€"; ?></p>
+                    <p class="bloque"><b>Stock </b><?php echo $listadofinal['STOCK'] . " unidades"; ?></p>
+                    <br>
+                    <form action="../controlador/control.php" method="post">
+                        <input type="hidden" name="nombre_producto" value="<?php echo $listadofinal['NOMBRE_PRODUCTO']; ?>">
+                        <input type="hidden" name="descripcion" value="<?php echo $listadofinal['DESCRIPCION']; ?>">
+                        <input type="hidden" name="id_categoria" value="<?php echo $listadofinal['ID_CATEGORIA']; ?>">
+                        <input type="hidden" name="imagen" value="<?php echo $listadofinal['IMAGEN']; ?>">
+                        <input type="hidden" name="precio" value="<?php echo $listadofinal['PRECIO']; ?>">
+                        <input type="hidden" name="stock" value="<?php echo $listadofinal['STOCK']; ?>">
+                        <input type="hidden" name="id_producto1" value="<?php echo $listadofinal['ID_PRODUCTO']; ?>">
+                        <input type="submit" value="Eliminar de la lista de deseados" name="opcion" class="ListaDeseados">
+                        <input type="submit" value="Comprar" name="opcion" class="Comprar">
+                        <input type="submit" value="Valorar" name="opcion" class="Valorar">
+                    </form>
+                </fieldset>
+        <?php
+            }
+        }
+        ?>
+        <br><br><br>
     </div>
 
     <aside>
@@ -144,10 +141,10 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
         </div>
     </aside>
     <div class="footer">
-            <p class="footer-content"><?php echo $user['DIRECCION'];?></p>
-            <p class="footer-content" id="telefono">627120850</p>
-            <p class="footer-content"><?php echo $user['EMAIL'];?></p>
-        </div>
+        <p class="footer-content"><?php echo $user['DIRECCION']; ?></p>
+        <p class="footer-content" id="telefono">627120850</p>
+        <p class="footer-content"><?php echo $user['EMAIL']; ?></p>
+    </div>
 </body>
 
 </html>

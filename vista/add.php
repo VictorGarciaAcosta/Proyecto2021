@@ -53,7 +53,6 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
                     }
                 }
             }
-            //$.get("asignarUsuarios.php",comprobarUsuario,'json');
 
         });
     </script>

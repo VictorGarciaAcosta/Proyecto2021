@@ -7,7 +7,7 @@
 
         $producto=new producto((float)$_POST["precio"], (float)$_POST["stock"], $_POST["imagen"],(int)$_POST["id_categoria"],$_POST["descripcion"],$_POST["nombre_producto"],$_POST["id_producto"]);
         $producto->modify();
-        header("Location: admin.php");
+        header("Location: ../index.php");
 
     }elseif(isset($_POST["AceptarCambios"])){
         producto::UpdateUser((float)$_POST['id_usuario'],$_POST['NOMBRE'],$_POST["APELLIDOS"],$_POST["EMAIL"],$_POST["DIRECCION"]);

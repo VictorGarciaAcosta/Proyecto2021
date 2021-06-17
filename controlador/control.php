@@ -23,14 +23,14 @@
     if ($_POST["opcion"]=="Eliminar") {            
         $producto->delete();
         
-        header("Location: admin.php");
+        header("Location: ../index.php");
         
     }elseif($_POST["opcion"]=="Modificar"){
         header ('Location: ../vista/modificar.php');
 
     }elseif(($_POST["opcion"]=="Añadir a la lista de deseados")){
         producto::AnadirDeseado((float)$_SESSION['id_usuario'],(float)$_SESSION['id_producto']);
-        header("Location: admin.php");
+        header("Location: ../index.php");
     }
     elseif(($_POST["opcion"]=="Eliminar de la lista de deseados")){
         producto::EliminarDeseado((float)$_SESSION['id_usuario'],(float)$_SESSION['id_producto']);
@@ -68,13 +68,13 @@
             $pedido = producto::getCarrito((float)$_SESSION['id_usuario']);
             producto::ComprarDetalle((float)$pedido['ID_PEDIDO'],(float)$_SESSION['id_producto']);
             producto::RecibeCompra((float)$_SESSION['id_producto']);
-            header("Location: admin.php");
+            header("Location: ../index.php");
         }else{
             producto::Comprar((float)$_SESSION['id_usuario']);
             $pedido = producto::getCarrito((float)$_SESSION['id_usuario']);
             producto::ComprarDetalle((float)$pedido['ID_PEDIDO'],(float)$_SESSION['id_producto']);
             producto::RecibeCompra((float)$_SESSION['id_producto']);
-            header("Location: admin.php");
+            header("Location: ../index.php");
         } 
     }
     elseif(($_POST["opcion"]=="Devolver")){
@@ -84,12 +84,12 @@
     }
     elseif(($_POST["opcion"]=="BorrarUser")){
         producto::BorrarUser($_POST['id_usuario']);
-        //header("Location: ../vista/perfil.php");
+        header("Location: ../vista/perfil.php");
     }elseif(($_POST["opcion"]=="ActualizarDatos")){
         $_SESSION['ActualizarDatos'] = $_POST['id_usuario'];
         header("Location: ../vista/modificarUsuario.php");
     }else{
-        header("Location: admin.php");
+        header("Location: ../index.php");
     }
     
 ?>

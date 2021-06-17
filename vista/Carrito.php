@@ -126,7 +126,6 @@ $PrecioTotal = 0;
         <?php
             }
         }
-        // 
         ?>
         <?php
           if (empty($ProductosPedido)) {

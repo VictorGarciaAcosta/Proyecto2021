@@ -9,19 +9,12 @@
 	$nombre = $_SESSION['nombre'];
 	$contrasena = $_SESSION['contrasena'];
 
-	echo $_SESSION['nombre'];
-	echo $_SESSION['contrasena'];
-
 	$query = $conn->prepare("SELECT ADMINISTRADOR,NOMBRE,ID_USUARIO FROM usuario WHERE NOMBRE=:nombre AND CONTRASENA =:contrasena");
 	$query->bindParam("nombre", $nombre, PDO::PARAM_STR);
 	$query->bindParam("contrasena", $contrasena, PDO::PARAM_STR);
 	$query->execute();
 
 	$result = $query->fetchAll();
-
-
-	echo $result;
-	
 
 	if ($result) {
 		$_SESSION['administrador'] = $result[0][0];
@@ -40,6 +33,7 @@
 		$nombre = $_SESSION['user'];
 		$administrador = $_SESSION['administrador'];
 	}
+	//envia la un array con los datos del usuario para recogerlo y gestionarlo desde el
 	/*enviarResultados($nombre,$administrador);
 
 	function enviarResultados($nombre,$administrador){

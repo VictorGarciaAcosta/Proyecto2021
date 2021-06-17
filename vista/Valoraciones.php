@@ -150,7 +150,6 @@ $listado = producto::getValoraciones();
         <?php
             }
         }
-        // 
         ?>
 
 

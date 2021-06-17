@@ -83,7 +83,7 @@ $Usuarios = producto::getAllUsers();
 
     </ul>
     <div class="content">
-    <fieldset>
+    <fieldset style="width: 100%;">
                 <legend name="<?php echo $user['NOMBRE']; ?>"><b>Nombre </b><?php echo $user['NOMBRE']; ?> </legend>
                 <p><b>Apellidos </b><?php echo $user['APELLIDOS']; ?></p>
                 <p><b>Email </b><?php echo $user['EMAIL']; ?></p>
@@ -137,7 +137,7 @@ $Usuarios = producto::getAllUsers();
             }
         }
         ?>
-        <h2>Precio Total <?php echo $PrecioTotal. "€"; ?></h2>
+        <h2>Precio Total <label class="red"><?php echo $PrecioTotal. "€"; ?></label></h2>
         <br><br><br><br>
     </div>
     <div id="Gestion">

@@ -4,18 +4,14 @@ include ('../modelo/conexion.php');
 session_start(); 
 
 $conn = new Conexion();
-
- 
 if (isset($_POST['register'])) {
  
     $Nombre = $_POST['Nombre'];
     $Apellidos = $_POST['Apellidos'];
     $Direccion = $_POST['Direccion'];
     $email = $_POST['email'];
-    echo $email;
     $administrador = 0;
     $password1 = $_POST['Contrasena'];
-    //$password_hash = password_hash($password, PASSWORD_BCRYPT);
  
     $query1 = $conn->prepare("SELECT * FROM usuario WHERE EMAIL=:email");
     $query1->bindParam("email", $email, PDO::PARAM_STR);
@@ -45,5 +41,8 @@ if (isset($_POST['register'])) {
     }
 }
 $conn=null;
-header("Location: ../vista/login.php");
+$_SESSION['nombre'] = $_POST['Nombre'];
+$_SESSION['contrasena'] = $_POST['Contrasena'];
+header("Location: ../modelo/asignarUsuarios.php");
+
 ?>

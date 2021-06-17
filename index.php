@@ -165,11 +165,11 @@ json_encode($ar);
                     <input type="submit" value="Eliminar" name="opcion" class="Eliminar">
                 </form>
             </fieldset>
-            <br>
+            
         <?php
         }
         ?>
-        <br><br>
+        <br><br><br><br>
     </div>
     <aside>
         <div class="social">

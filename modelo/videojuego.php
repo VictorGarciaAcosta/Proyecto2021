@@ -48,7 +48,7 @@
         }
 
         /**
-         * He aislado la ejecucion de todas las consultas SQL para reduccion de codigo.
+         * He aislado la ejecucion de todas las consultas SQL de producto para reduccion de codigo.
          */
         public function ejecuta($sql) {
             $conn = new Conexion();
@@ -196,7 +196,6 @@
         public static function ComprarPedido($pedido){
             $sql = "UPDATE `pedido` SET `COMPRADO` = 1 WHERE `ID_PEDIDO` = $pedido";
             $conn = new Conexion();
-            echo $sql;
             $result = $conn->prepare($sql);
             $result->execute();
             $conn=null;   
@@ -260,7 +259,6 @@
         public static function BorrarPedido($pedido,$producto) {
             $conn = new Conexion();            
             $sql = "DELETE FROM `detalle_pedido` WHERE `ID_PEDIDO`=$pedido AND `ID_PRODUCTO`=$producto";
-            echo $sql;
             $result = $conn->prepare($sql); 
             $result->execute();
             $conn=null;
@@ -270,14 +268,12 @@
             $conn = new Conexion();   
             $sql = "INSERT INTO `detalle_pedido` (`CANTIDAD`,`DEVUELTO`,`ID_PEDIDO`,`ID_PRODUCTO`) VALUES (1,'N',$pedido,$producto)";
             $result = $conn->prepare($sql); 
-            echo $sql;
             $result->execute();
             $conn=null;
         }
         public static function RecibeCompra($producto){
             $sql = "UPDATE `producto` SET `STOCK` = `STOCK`-1 WHERE `ID_PRODUCTO` = $producto";
             $conn = new Conexion();
-            echo $sql;
             $result = $conn->prepare($sql);
             $result->execute();
             $conn=null;   
@@ -285,7 +281,6 @@
         public static function DevuelveCompra($producto){
             $sql = "UPDATE `producto` SET `STOCK` = `STOCK`+1 WHERE `ID_PRODUCTO` = $producto";
             $conn = new Conexion();
-            echo $sql;
             $result = $conn->prepare($sql);
             $result->execute();
             $conn=null;   
@@ -313,7 +308,6 @@
         public static function BorrarComentario($usuario,$producto,$comentario){
             $conn = new Conexion();            
             $sql = "DELETE FROM `valoracion` WHERE `ID_USUARIO`=$usuario AND `ID_PRODUCTO`=$producto AND `COMENTARIO`=\"".$comentario."\"";
-            echo $sql;
             $result = $conn->prepare($sql); 
             $result->execute();
             $conn=null;
@@ -362,22 +356,21 @@
             $sql = "DELETE FROM `pedido` WHERE `ID_USUARIO`=$user AND `COMPRADO`= 0 ";
             $result = $conn->prepare($sql); 
             $result->execute();
-            echo "<br>".$sql."<br>";
+            
             
             $sql = "DELETE FROM `lista_deseos` WHERE `ID_USUARIO`=$user ";
             $result = $conn->prepare($sql); 
             $result->execute();
-            echo $sql."<br>";
+            
 
             $sql = "DELETE FROM `valoracion` WHERE `ID_USUARIO`=$user ";
             $result = $conn->prepare($sql); 
             $result->execute();
-            echo $sql."<br>";
+            
                            
             $sql = "DELETE FROM `usuario` WHERE `ID_USUARIO`=$user ";
             $result = $conn->prepare($sql); 
             $result->execute();
-            echo $sql."<br>";
             
             $conn=null;
         }
