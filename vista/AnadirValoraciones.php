@@ -5,13 +5,14 @@ include('../modelo/videojuego.php');
 
 
 session_start();
-
+$indice = $_SESSION['Producto1'];
 $nombre = $_SESSION['user'];
 $administrador = $_SESSION['administrador'];
 
 $ar = array($nombre, $administrador);
 json_encode($ar);
 $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
+$categoria = producto::getCategoria($indice[3]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +20,11 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
 <head>
     <link rel="stylesheet" href="../styles/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <style>
+    body{
+        text-align: center;
+    }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -75,12 +80,21 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
 
     </ul>
     <div class="content">
+        <fieldset class="formularios">
+        <form action="../controlador/AddValoracion.php" method="post" class="formularios">
+        <legend name="<?php echo $indice[5]; ?>"><?php echo $indice[5]; ?> </legend>
+                    <img src="<?php echo $indice[2]; ?>" alt="<?php echo $indice[5]; ?>">
+                    <p><b>Descripcion: <br /> </b><?php echo $indice[4]; ?></p>
+                    <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
+                    <p class="bloque"><b>Precio </b><?php echo $indice[0] . "€"; ?></p>
+                    <p class="bloque"><b>Stock </b><?php echo $indice[1] . " unidades"; ?></p>
+            <br>
         
-        <form action="../controlador/AddValoracion.php" method="post">
             <label for="">Puntuacion</label><br><input type="number" name="Puntuacion" min="1" max="5" required><br>
             <label for="">Comentario</label><br><textarea name="Comentario" cols="30" rows="10" required></textarea><br>
             <input type="submit" value="Puntuar" name="opcion">
         </form>
+        </fieldset>
     </div>
 
     <aside>

@@ -115,7 +115,17 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
                         <input type="hidden" name="stock" value="<?php echo $listadofinal['STOCK']; ?>">
                         <input type="hidden" name="id_producto1" value="<?php echo $listadofinal['ID_PRODUCTO']; ?>">
                         <input type="submit" value="Eliminar de la lista de deseados" name="opcion" class="ListaDeseados">
-                        <input type="submit" value="Comprar" name="opcion" class="Comprar">
+                        <?php
+                        if ($listadofinal['STOCK'] == 0) {
+                        ?>
+                            <label class="red"><del>comprar</del> </label>
+                        <?php
+                        } else {
+                        ?>
+                            <input type="submit" value="Comprar" name="opcion" class="Comprar">
+                        <?php
+                        }
+                        ?>
                         <input type="submit" value="Valorar" name="opcion" class="Valorar">
                     </form>
                 </fieldset>

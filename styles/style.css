@@ -4,7 +4,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: rgb(61, 13, 172);
+  background-color: rgb(90, 7, 107);
   display: flex;
   justify-content: center;
 }
@@ -65,7 +65,7 @@ body {
   
 	font-size: 1em;
 	line-height: 1.5em;
-  background-image: url(http://www.geekpro.es/wp-content/uploads/2020/04/codigo.jpeg);
+  background-image: url(https://cdn.hipwallpaper.com/i/8/66/i4Ek1A.jpg);
 }
 div img{
   display: inline-block;
@@ -93,8 +93,63 @@ h2{
 .red{
   color: red;
 }
+.green{
+  color: green;
+}
 label{
   color: white;
+}
+/* formularios dentro de content ----------------------------------------------*/
+.formularios{
+  color: black;
+}
+
+.formularios{
+  text-align: left;
+}
+.formularios h1 {
+  font-family: 'Passion One';
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+.formularios label {
+  width: 150px;
+  display: inline-block;
+  text-align: left;
+  font-size: 1.5rem;
+  color: Black;
+  font-family: 'Lato';
+}
+
+.formularios input {
+  border: 2px solid #ccc;
+  font-size: 1.2rem;
+  font-weight: 100;
+  font-family: 'Lato';
+  padding: 10px;
+}
+
+.formularios form {
+  margin: 25px auto;
+  padding: 20px;
+  border: 5px solid #ccc;
+  width: 500px;
+  background: #eee;
+}
+
+.formularios div.form-element {
+  margin: 20px 0;
+}
+
+.formularios button {
+  padding: 10px;
+  font-size: 1.5rem;
+  font-family: 'Lato';
+  font-weight: 100;
+  background: yellowgreen;
+  color: white;
+  border: none;
 }
 
 /* Aside ----------------------------------------------*/

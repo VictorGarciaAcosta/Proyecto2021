@@ -7,7 +7,6 @@ if (!isset($_SESSION["administrador"])) {
     header("location: ./controlador/logout.php");
 }
 $listado = producto::getJuegos();
-
 $nombre = $_SESSION['user'];
 $administrador = $_SESSION['administrador'];
 
@@ -108,6 +107,7 @@ json_encode($ar);
                 }
             }
         });
+
     </script>
     <title>Tienda Videojuegos</title>
 </head>
@@ -159,7 +159,18 @@ json_encode($ar);
                     <input type="hidden" name="id_producto" value="<?php echo $entrada['ID_PRODUCTO']; ?>">
                     <input type="hidden" name="id_producto1" value="<?php echo $entrada['ID_PRODUCTO']; ?>">
                     <input type="submit" value="Modificar" name="opcion" class="Modificar">
+                    <?php
+                    if($entrada['STOCK'] == 0){
+                    ?>
+                     <label class="Comprar" style="color: red;"><del>comprar</del>   </label>
+                    <?php                    
+                    }else{
+                    ?>
                     <input type="submit" value="Comprar" name="opcion" class="Comprar">
+                    <?php
+                    }
+                    ?>
+                    
                     <input type="submit" value="Añadir a la lista de deseados" name="opcion" class="ListaDeseados">
                     <input type="submit" value="Valorar" name="opcion" class="Valorar">
                     <input type="submit" value="Eliminar" name="opcion" class="Eliminar">

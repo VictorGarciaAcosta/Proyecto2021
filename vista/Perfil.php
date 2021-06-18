@@ -83,6 +83,7 @@ $Usuarios = producto::getAllUsers();
 
     </ul>
     <div class="content">
+    <h1>Datos Del Usuario</h1>
     <fieldset style="width: 100%;">
                 <legend name="<?php echo $user['NOMBRE']; ?>"><b>Nombre </b><?php echo $user['NOMBRE']; ?> </legend>
                 <p><b>Apellidos </b><?php echo $user['APELLIDOS']; ?></p>

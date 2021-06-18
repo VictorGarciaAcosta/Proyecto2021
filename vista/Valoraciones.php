@@ -117,14 +117,14 @@ $listado = producto::getValoraciones();
                 $user = producto::getUserInfo($listadofinal['ID_USUARIO']);
                 $categoria = producto::getCategoria($juego['ID_CATEGORIA']);
                 $_SESSION['comentario'] = $listadofinal['COMENTARIO'];
-                
+
 
         ?>
                 <fieldset>
-                    <legend name="<?php echo $user['NOMBRE']; ?>"><b><?php echo $user['NOMBRE'] . "  " . $user['APELLIDOS']; ?> </b></legend>
+                    <legend name="<?php echo $user['NOMBRE']; ?>"><b><?php echo $user['NOMBRE'] . "  " . $user['APELLIDOS'] . " " . $listadofinal['PUNTUACION'] . "⭐"; ?> </b></legend>
                     <img src="<?php echo $juego['IMAGEN']; ?>" alt="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
                     <textarea name="Comentario" id="Comentario" cols="30" rows="10"><?php echo $listadofinal['COMENTARIO']; ?></textarea>
-                    <label><?php echo $listadofinal['PUNTUACION'] . "⭐"; ?></label>
+
                     <p></p>
                     <p class="bloque"> <b>Categoria </b><?php echo $categoria['NOMBRE_CATEGORIA']; ?></p>
                     <p class="bloque"><b>Precio </b><?php echo $juego['PRECIO'] . "€"; ?></p>
@@ -143,7 +143,17 @@ $listado = producto::getValoraciones();
                         <input type="hidden" name="id_usuarioborrar" value="<?php echo $user['ID_USUARIO']; ?>">
 
                         <input type="submit" value="Añadir a la lista de deseados" name="opcion" class="ListaDeseados">
-                        <input type="submit" value="Comprar" name="opcion" class="Comprar">
+                        <?php
+                        if ($juego['STOCK'] == 0) {
+                        ?>
+                            <label class="Comprar" style="color: red;"><del>comprar</del> </label>
+                        <?php
+                        } else {
+                        ?>
+                            <input type="submit" value="Comprar" name="opcion" class="Comprar">
+                        <?php
+                        }
+                        ?>
                         <input type="submit" value="Borrar" name="opcion" class="Borrar">
                     </form>
                 </fieldset>
@@ -153,7 +163,7 @@ $listado = producto::getValoraciones();
         ?>
 
 
-        <br><br><br>
+        <br><br><br><br>
     </div>
 
     <aside>
@@ -165,7 +175,7 @@ $listado = producto::getValoraciones();
                 foreach ($listado as $listadofinal) {
                     $juego = producto::getJuego($listadofinal['ID_PRODUCTO']);
                 ?>
-                
+
                     <option value="<?php echo $juego['NOMBRE_PRODUCTO']; ?>">
                     <?php }
                     ?>

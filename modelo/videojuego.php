@@ -75,10 +75,9 @@
         }
 
         /**
-         * En el cago de obtener la lista de productos no utilizo la funcion ejecuta() debido a que requiero obtener un
-         * array de los resultados, por lo que no es compatible con el resco de consultas.
+         * En el caso de obtener la lista de productos no utilizo la funcion ejecuta() debido a que requiero obtener un
+         * array de los resultados, por lo que no es compatible con el resto de consultas.
          */
-
         public static function getJuegos() {            
             $conn = new Conexion(); 
             $sql = "SELECT * FROM `producto`";
@@ -107,11 +106,17 @@
             return $productos;    
         }
         public static function AnadirDeseado($usuario,$producto) {
-            $conn = new Conexion();            
-            $sql = "INSERT INTO `lista_deseos` (`ID_USUARIO`, `ID_PRODUCTO`) VALUES ($usuario,$producto)";
-            
+            $conn = new Conexion();
+            $sql = "SELECT * FROM `lista_deseos` WHERE ID_USUARIO = $usuario AND ID_PRODUCTO = $producto";
             $result = $conn->prepare($sql); 
             $result->execute();
+            $results = $result->fetch(PDO::FETCH_ASSOC); 
+            if(empty($results)){
+                $sql = "INSERT INTO `lista_deseos` (`ID_USUARIO`, `ID_PRODUCTO`) VALUES ($usuario,$producto)";
+            
+                $result = $conn->prepare($sql); 
+                $result->execute();
+            }        
             $conn=null;
         }
         public static function EliminarDeseado($usuario,$producto) {
@@ -261,7 +266,9 @@
             $sql = "DELETE FROM `detalle_pedido` WHERE `ID_PEDIDO`=$pedido AND `ID_PRODUCTO`=$producto";
             $result = $conn->prepare($sql); 
             $result->execute();
+            $numerofilas = $result->rowCount();
             $conn=null;
+            return $numerofilas;
              
         }
         public static function ComprarDetalle($pedido,$producto){
@@ -278,8 +285,8 @@
             $result->execute();
             $conn=null;   
         }
-        public static function DevuelveCompra($producto){
-            $sql = "UPDATE `producto` SET `STOCK` = `STOCK`+1 WHERE `ID_PRODUCTO` = $producto";
+        public static function DevuelveCompra($producto,$cantidad){
+            $sql = "UPDATE `producto` SET `STOCK` = `STOCK`+ $cantidad WHERE `ID_PRODUCTO` = $producto";
             $conn = new Conexion();
             $result = $conn->prepare($sql);
             $result->execute();
@@ -375,4 +382,3 @@
             $conn=null;
         }
     }
-    ?>

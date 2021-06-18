@@ -22,7 +22,11 @@ if($_SESSION['ActualizarDatos']){
 <head>
     <link rel="stylesheet" href="../styles/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <style>
+    body{
+        text-align: center;
+    }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -81,25 +85,25 @@ if($_SESSION['ActualizarDatos']){
 
     </ul>
     <div class="content">
-        <form action="../controlador/modificar.php" method="post">                
-        <fieldset>
-                <legend name="<?php echo $listado['NOMBRE']; ?>"><?php echo $listado['NOMBRE']; ?> </legend>
+    <fieldset class="formularios">
+        <form action="../controlador/modificar.php" method="post" class="formularios">                
+
+                <p><b>Nombre </b><?php echo $listado['NOMBRE']; ?></p>
                 <p><b>Apellidos </b><?php echo $listado['APELLIDOS']; ?></p>
                 <p><b>Email </b><?php echo $listado['EMAIL']; ?></p>
                 <p><b>Direccion </b><?php echo $listado['DIRECCION']; ?></p>
                 <br>
-                
-                    
-                
-            </fieldset>
+            
+            <br>
             <label for="">Nombre</label><br><input type="text" name="NOMBRE" value="<?php echo $listado['NOMBRE']?>" ><br>
             <label for="">Apellidos</label><br><input type="text" name="APELLIDOS" value="<?php echo $listado['APELLIDOS']?>" required><br>
-            <label for="">EMAIL</label><br><input type="text" name="EMAIL" value="<?php echo $listado['EMAIL']?>" required><br>
+            <label for="">EMAIL</label><br><input type="email" name="EMAIL" value="<?php echo $listado['EMAIL']?>" required><br>
             <label for="">DIRECCION</label><br><input type="text" name="DIRECCION" value="<?php echo $listado['DIRECCION']?>" required><br>
             <input type="hidden" name="id_usuario" value="<?php echo $listado['ID_USUARIO']; ?>">
-            
+            <br>
             <input type="submit" value="Aceptar Cambios" name="AceptarCambios">
         </form>
+        </fieldset>
     </div>
 </body>
 </html>

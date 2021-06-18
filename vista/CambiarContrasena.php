@@ -7,10 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../styles/formulario.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("formulario").addEventListener('submit', validarFormulario);
+        });
+
+        function validarFormulario(evento) {
+            evento.preventDefault();
+            var clave = document.getElementById('pass1').value;
+            var clave2 = document.getElementById('pass2').value;
+
+            if (clave != clave2) {
+                alert('Las Contraseñas no coinciden');
+                return;
+            }
+            this.submit();
+        }
+    </script>
 </head>
 
 <body>
-    <form method="post" action="../controlador/modificar.php" name="signin-form">
+    <form method="post" action="../controlador/modificar.php" name="signin-form" id="formulario">
         <div class="form-element">
             <label>Contrasena</label>
             <input type="password" name="Contrasena" id="pass1" required />

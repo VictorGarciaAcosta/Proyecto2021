@@ -56,26 +56,14 @@ button {
     color: white;
     border: none;
 }
- 
-p.success,
-p.error {
-    color: white;
-    font-family: lato;
-    background: yellowgreen;
-    display: inline-block;
-    padding: 2px 10px;
+.error {
+    color: #FF0000;
 }
- 
-p.error {
-    background: orangered;
+
+.invalid-feedback {
+    display: block !important
 }
-.ocultar {
-    display: none;
-}
- 
-.mostrar {
-    display: block;
-}
+
 /*Footer-------------------------*/
 .footer-content{
     display: inline-block;

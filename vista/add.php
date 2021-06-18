@@ -18,6 +18,11 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
 
 <head>
     <link rel="stylesheet" href="../styles/style.css">
+    <style>
+    body{
+        text-align: center;
+    }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <meta charset="UTF-8">
@@ -76,7 +81,7 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
 
     </ul>
     <div class="content">
-        
+        <fieldset class="formularios">
         <form action="../controlador/add.php" method="post">
             <label for="">nombre_producto</label><br><input type="text" name="nombre_producto" required><br>
             <label for="">descripcion</label><br><textarea name="descripcion" cols="30" rows="10" required></textarea><br>
@@ -86,6 +91,7 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
             <label for="">stock</label><br><input type="text" name="stock" required><br><br>
             <input type="submit" value="Añade" name="Añade">
         </form>
+        </fieldset>
     </div>
 
     <aside>

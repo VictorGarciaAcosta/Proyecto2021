@@ -52,8 +52,8 @@
     }
     elseif(($_POST["opcion"]=="BorrarDelCarrito")){
         $pedido = producto::getCarrito((float)$_SESSION['id_usuario']);
-        producto::BorrarPedido((float)$pedido['ID_PEDIDO'],(float)$_SESSION['id_producto']);
-        producto::DevuelveCompra((float)$_SESSION['id_producto']);
+        $cantidad = producto::BorrarPedido((float)$pedido['ID_PEDIDO'],(float)$_SESSION['id_producto']);
+        producto::DevuelveCompra((float)$_SESSION['id_producto'],(float)$cantidad);
         header("Location: ../vista/Carrito.php");
     }
     elseif(($_POST["opcion"]=="FinalizarCompra")){

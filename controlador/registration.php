@@ -4,7 +4,7 @@ include ('../modelo/conexion.php');
 session_start(); 
 
 $conn = new Conexion();
-if (isset($_POST['register'])) {
+
  
     $Nombre = $_POST['Nombre'];
     $Apellidos = $_POST['Apellidos'];
@@ -13,6 +13,9 @@ if (isset($_POST['register'])) {
     $administrador = 0;
     $password1 = $_POST['Contrasena'];
  
+    echo $password1." ".$Nombre." ".$Spellidos." ".$Direccion." ".$email;
+
+
     $query1 = $conn->prepare("SELECT * FROM usuario WHERE EMAIL=:email");
     $query1->bindParam("email", $email, PDO::PARAM_STR);
     $query1->execute();
@@ -32,14 +35,8 @@ if (isset($_POST['register'])) {
         $query->bindParam("password1", $password1, PDO::PARAM_STR);
         $query->bindParam("email", $email, PDO::PARAM_STR);
         $result = $query->execute();
- 
-        if ($result) {
-            echo '<p class="success">Your registration was successful!</p>';
-        } else {
-            echo '<p class="error">Something went wrong!</p>';
-        }
     }
-}
+
 $conn=null;
 $_SESSION['nombre'] = $_POST['Nombre'];
 $_SESSION['contrasena'] = $_POST['Contrasena'];
