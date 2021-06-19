@@ -1,7 +1,8 @@
 <?php
 
-error_reporting(E_ALL);
-
+error_reporting(0);
+//Incluimos las clases necesarias para llamadas a funciones, iniciamos las sesiones y obtenemos los datos para el listado de productos
+//Y controlamos si el usuario es administrador o si no esta logeado, esto se realiza en todas las vistas.
 include('../modelo/videojuego.php');
 session_start();
 
@@ -100,7 +101,14 @@ $Usuarios = producto::getAllUsers();
     <?php
     
     if (empty($HistorialCompra)) {
-            echo "No Se han Realizado Compras";
+        ?>
+        <div id="centro" style="text-align: center;">
+        <br>
+        <h2 >No Se han realizado Compras</h2>
+        <br>
+        <a href="../index.php" ><button type="button" name="volver" value="volver" style="background-color:red">HOME</button></a>
+        </div>
+        <?php
             
         } else {
             ?>
@@ -136,10 +144,13 @@ $Usuarios = producto::getAllUsers();
         <?php
                 }
             }
-        }
         ?>
         <h2>Precio Total <label class="red"><?php echo $PrecioTotal. "€"; ?></label></h2>
         <br><br><br><br>
+        <?php
+        }
+        ?>
+        
     </div>
     <div id="Gestion">
         <h1>Gestion de Usuarios</h1>

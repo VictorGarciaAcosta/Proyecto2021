@@ -5,7 +5,7 @@ session_start();
 
 $conn = new Conexion();
 
- 
+    //recoge los datos del formulario
     $Nombre = $_POST['Nombre'];
     $Apellidos = $_POST['Apellidos'];
     $Direccion = $_POST['Direccion'];
@@ -15,7 +15,7 @@ $conn = new Conexion();
  
     echo $password1." ".$Nombre." ".$Spellidos." ".$Direccion." ".$email;
 
-
+    //Comprobamos que el email no se repita tampoco
     $query1 = $conn->prepare("SELECT * FROM usuario WHERE EMAIL=:email");
     $query1->bindParam("email", $email, PDO::PARAM_STR);
     $query1->execute();
@@ -24,7 +24,7 @@ $conn = new Conexion();
         echo '<p class="error">The email address is already registered!</p>';
         header("Location: ../vista/signup.php");
     }
- 
+    //Insertamos el usuario en la base de datos como NO administrador
     if ($query1->rowCount() == 0) {
         $query = $conn->prepare("INSERT INTO usuario(NOMBRE,APELLIDOS,DIRECCION,ADMINISTRADOR,CONTRASENA,EMAIL) VALUES (:Nombre,:Apellidos,:Direccion,:administrador,
         :password1,:email)");

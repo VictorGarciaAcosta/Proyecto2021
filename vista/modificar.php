@@ -1,5 +1,6 @@
 <?php
-
+//Incluimos las clases necesarias para llamadas a funciones, iniciamos las sesiones y obtenemos los datos para el listado de productos
+//Y controlamos si el usuario es administrador o si no esta logeado, esto se realiza en todas las vistas.
     include('../modelo/videojuego.php');
     session_start();
     $indice = $_SESSION['Producto1'];

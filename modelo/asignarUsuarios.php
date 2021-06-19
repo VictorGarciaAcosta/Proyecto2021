@@ -1,7 +1,7 @@
 <?php
 	
 	include ('conexion.php');
-
+	
 	session_start();
 
 	$conn = new Conexion();
@@ -9,6 +9,7 @@
 	$nombre = $_SESSION['nombre'];
 	$contrasena = $_SESSION['contrasena'];
 
+	//realizamos una query con los datos del usuario para obtener si es administrador o no y lo guardamos en sesiones
 	$query = $conn->prepare("SELECT ADMINISTRADOR,NOMBRE,ID_USUARIO FROM usuario WHERE NOMBRE=:nombre AND CONTRASENA =:contrasena");
 	$query->bindParam("nombre", $nombre, PDO::PARAM_STR);
 	$query->bindParam("contrasena", $contrasena, PDO::PARAM_STR);
@@ -16,6 +17,7 @@
 
 	$result = $query->fetchAll();
 
+	//Tambien guardamos el id_usuario para simplificacion de obtencion de datos de este
 	if ($result) {
 		$_SESSION['administrador'] = $result[0][0];
 		$_SESSION['user'] = $result[0][1];
@@ -33,18 +35,6 @@
 		$nombre = $_SESSION['user'];
 		$administrador = $_SESSION['administrador'];
 	}
-	//envia la un array con los datos del usuario para recogerlo y gestionarlo desde el
-	/*enviarResultados($nombre,$administrador);
-
-	function enviarResultados($nombre,$administrador){
-	    // Generar la respuesta
-	    header('Content-Type: application/json');
-
-		$respuesta['nombre'] = $nombre;
-		$respuesta['administrador'] = $administrador;
-
-    	echo json_encode($respuesta);		
-	}*/
 	$conn=null;
 	header("Location: ../index.php");
 ?>

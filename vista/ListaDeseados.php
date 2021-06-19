@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
-
+error_reporting(0);
+//Incluimos las clases necesarias para llamadas a funciones, iniciamos las sesiones y obtenemos los datos para el listado de productos
+//Y controlamos si el usuario es administrador o si no esta logeado, esto se realiza en todas las vistas.
 include('../modelo/videojuego.php');
 session_start();
 
@@ -89,7 +90,14 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
         <?php
 
         if (empty($listado)) {
-            echo "No hay articulos en tu lista de deseados";
+            ?>
+            <div id="centro" style="text-align: center;">
+            <br>
+            <h2 >No hay articulos en tu lista de deseados</h2>
+            <br>
+            <a href="../index.php" ><button type="button" name="volver" value="volver" style="background-color:red">Volver</button></a>
+            </div>
+            <?php
         } else {
             foreach ($listado as $entrada) {
                 $producto1[] = producto::getJuegosDeseados2($entrada['ID_PRODUCTO']);

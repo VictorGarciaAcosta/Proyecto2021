@@ -2,6 +2,7 @@
 error_reporting(0);
 
 include('../modelo/videojuego.php');
+//Controlamos que no se cree un usuario con el mismo nombre, y que la contraseña coincida
 
 $usuarios = producto::getAllUsers();
 
@@ -29,6 +30,7 @@ $usuariosNombre[] = "Victor";
         });
 
         function validarFormulario(evento) {
+            //evitamos que haga el submit hasta el final de la funcion
             evento.preventDefault();
             var nombres = <?php echo json_encode($usuariosNombre) ?>;
 

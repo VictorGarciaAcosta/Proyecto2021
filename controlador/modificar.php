@@ -2,6 +2,7 @@
     include ('../modelo/conexion.php');
     include ('../modelo/videojuego.php');
     session_start();
+    //este fichero controla los modificar de producto,  datos de usuario y contraseñas
     if (isset($_POST["Aceptar"])) {
         
 

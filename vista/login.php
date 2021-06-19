@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
-
+//Incluimos las clases necesarias para llamadas a funciones, iniciamos las sesiones y obtenemos los datos para el listado de productos
+//Y controlamos si el usuario es administrador o si no esta logeado, esto se realiza en todas las vistas.
 include('../modelo/videojuego.php');
 
 $usuarios = producto::getAllUsers();
@@ -31,6 +32,7 @@ $usuariosPass[] = "contrasena";
         });
 
         function validarFormulario(evento) {
+            //Controlamos que el usuario este introduciendo sus credenciales correctamente
             evento.preventDefault();
             var nombres = <?php echo json_encode($usuariosNombre) ?>;
             var contrasena = <?php echo json_encode($usuariosPass) ?>;

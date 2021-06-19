@@ -1,8 +1,9 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(0);
 
 include('../modelo/videojuego.php');
-
+//Incluimos las clases necesarias para llamadas a funciones, iniciamos las sesiones y obtenemos los datos para el listado de productos
+//Y controlamos si el usuario es administrador o si no esta logeado, esto se realiza en todas las vistas.
 
 session_start();
 

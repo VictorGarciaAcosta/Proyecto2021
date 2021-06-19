@@ -1,6 +1,8 @@
 ﻿<?php
 error_reporting(0);
 
+//Incluimos las clases necesarias para llamadas a funciones, iniciamos las sesiones y obtenemos los datos para el listado de productos
+//Y controlamos si el usuario es administrador o si no esta logeado, esto se realiza en todas las vistas.
 include('./modelo/videojuego.php');
 session_start();
 if (!isset($_SESSION["administrador"])) {
@@ -10,6 +12,7 @@ $listado = producto::getJuegos();
 $nombre = $_SESSION['user'];
 $administrador = $_SESSION['administrador'];
 
+//con esto controlamos si el usuario esta logeado o no, o por contrario si es administrador.
 $ar = array($nombre, $administrador);
 json_encode($ar);
 ?>
@@ -24,6 +27,7 @@ json_encode($ar);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script>
+        //Muestra u oculta funcionalidades y otros a traves del control de usuario
         $(document).ready(function() {
             var ar = <?php echo json_encode($ar) ?>;
             comprobarUsuario(ar);
@@ -137,7 +141,6 @@ json_encode($ar);
          * Por cada elemento mostrado se generan botones mara el borrado, modificacion, compra o adicion a la lista de deseados del articulo.
          * Esta accion se llevara a cabo en el controlador '/controler/control.php'
          */
-
         foreach ($listado as $entrada) {
             $categoria = producto::getCategoria($entrada['ID_CATEGORIA']);
         ?>
@@ -160,6 +163,7 @@ json_encode($ar);
                     <input type="hidden" name="id_producto1" value="<?php echo $entrada['ID_PRODUCTO']; ?>">
                     <input type="submit" value="Modificar" name="opcion" class="Modificar">
                     <?php
+                    //Validamos si el stock esta a 0 que no se pueda realizar una compra en ese producto
                     if($entrada['STOCK'] == 0){
                     ?>
                      <label class="Comprar" style="color: red;"><del>comprar</del>   </label>

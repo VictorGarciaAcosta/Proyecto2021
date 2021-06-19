@@ -13,6 +13,7 @@
         });
 
         function validarFormulario(evento) {
+            //controlamos que las contraseñas coincidan.
             evento.preventDefault();
             var clave = document.getElementById('pass1').value;
             var clave2 = document.getElementById('pass2').value;
