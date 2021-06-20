@@ -1,6 +1,6 @@
 <?php
     class Conexion extends PDO {
-      private $datos = "mysql:host=localhost;dbname=proyectotiendavideojuegos2;charset=utf8mb4";
+      private $datos = "mysql:host=localhost;dbname=proyectovideojuegos;charset=utf8mb4";
       private $usuario = "admin";
       private $pass = "admin"; 
       public function __construct(){
