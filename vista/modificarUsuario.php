@@ -46,6 +46,9 @@ if($_SESSION['ActualizarDatos']){
                     
                     document.getElementById('Signup').style.display = 'initial';
                     document.getElementById('Login').style.display = 'initial';
+                    <?php if($nombre=="Ninguno"){
+                        header("Location: ../modelo/asignarUsuarios.php");
+                    }?>
                 } else {
                     document.getElementById('Login').style.display = 'none';
                     document.getElementById('Perfil').style.display = 'initial';

@@ -43,6 +43,9 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
                     document.getElementById('Add').style.display = 'none';
                     document.getElementById('Signup').style.display = 'initial';
                     document.getElementById('Login').style.display = 'initial';
+                    <?php if($nombre=="Ninguno"||$nombre=="Victor"){
+                        header("Location: ../modelo/asignarUsuarios.php");
+                    }?>
                 } else {
                     document.getElementById('Login').style.display = 'none';
                     document.getElementById('Perfil').style.display = 'initial';
@@ -58,6 +61,7 @@ $user = producto::getUserInfo((float)$_SESSION['id_usuario']);
                             document.getElementById('Lista').style.display = 'none';
                             document.getElementById('Carrito').style.display = 'none';
                             document.getElementById('Comprar').style.display = 'none';
+                            
                         }
                     }
                 }

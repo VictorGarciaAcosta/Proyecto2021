@@ -47,6 +47,9 @@ $PrecioTotal = 0;
                     document.getElementById('Add').style.display = 'none';
                     document.getElementById('Signup').style.display = 'initial';
                     document.getElementById('Login').style.display = 'initial';
+                    <?php if($nombre=="Ninguno"||$nombre=="Victor"){
+                        header("Location: ../modelo/asignarUsuarios.php");
+                    }?>
                 } else {
                     document.getElementById('Login').style.display = 'none';
                     document.getElementById('Perfil').style.display = 'initial';
@@ -62,6 +65,7 @@ $PrecioTotal = 0;
                             document.getElementById('Lista').style.display = 'none';
                             document.getElementById('Carrito').style.display = 'none';
                             document.getElementById('Comprar').style.display = 'none';
+                            
                         }
                     }
                 }
